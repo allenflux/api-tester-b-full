@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	_ "modernc.org/sqlite"
@@ -202,14 +203,81 @@ func (s *Store) ListRuns(ctx context.Context, limit int) ([]model.Run, error) {
 	}
 	defer rows.Close()
 	var out []model.Run
+	//for rows.Next() {
+	//	var r model.Run
+	//	if err := rows.Scan(&r.ID, &r.Mode, &r.Status, &r.StartedAt, &r.FinishedAt, &r.EndpointCnt, &r.TotalCalls, &r.SuccessCnt, &r.FailedCnt, &r.TimeoutCnt, &r.AvgCostMs, &r.ReportPath, &r.Error); err != nil {
+	//		return nil, err
+	//	}
+	//	out = append(out, r)
+	//}
 	for rows.Next() {
 		var r model.Run
-		if err := rows.Scan(&r.ID, &r.Mode, &r.Status, &r.StartedAt, &r.FinishedAt, &r.EndpointCnt, &r.TotalCalls, &r.SuccessCnt, &r.FailedCnt, &r.TimeoutCnt, &r.AvgCostMs, &r.ReportPath, &r.Error); err != nil {
+		var startedAtRaw any
+		var finishedAtRaw any
+
+		if err := rows.Scan(
+			&r.ID,
+			&r.Mode,
+			&r.Status,
+			&startedAtRaw,
+			&finishedAtRaw,
+			&r.EndpointCnt,
+			&r.TotalCalls,
+			&r.SuccessCnt,
+			&r.FailedCnt,
+			&r.TimeoutCnt,
+			&r.AvgCostMs,
+			&r.ReportPath,
+			&r.Error,
+		); err != nil {
 			return nil, err
 		}
+
+		r.StartedAt = scanSQLiteTime(startedAtRaw)
+		r.FinishedAt = scanSQLiteTime(finishedAtRaw)
+
 		out = append(out, r)
 	}
 	return out, rows.Err()
+}
+
+func scanSQLiteTime(v any) time.Time {
+	switch x := v.(type) {
+	case nil:
+		return time.Time{}
+	case time.Time:
+		return x
+	case string:
+		return parseSQLiteTime(x)
+	case []byte:
+		return parseSQLiteTime(string(x))
+	default:
+		return parseSQLiteTime(fmt.Sprint(v))
+	}
+}
+
+func parseSQLiteTime(s string) time.Time {
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return time.Time{}
+	}
+
+	layouts := []string{
+		time.RFC3339Nano,
+		time.RFC3339,
+		"2006-01-02 15:04:05.999999999-07:00",
+		"2006-01-02 15:04:05.999999999",
+		"2006-01-02 15:04:05",
+		"2006-01-02T15:04:05.999999999",
+		"2006-01-02T15:04:05",
+	}
+
+	for _, layout := range layouts {
+		if t, err := time.Parse(layout, s); err == nil {
+			return t
+		}
+	}
+	return time.Time{}
 }
 
 func (s *Store) ListCallRecords(ctx context.Context, runID int64, q string, limit int) ([]model.CallRecord, error) {
@@ -237,16 +305,53 @@ func (s *Store) ListCallRecords(ctx context.Context, runID int64, q string, limi
 	defer rows.Close()
 
 	var out []model.CallRecord
+	//for rows.Next() {
+	//	var rec model.CallRecord
+	//	var payloadJSON, headersJSON string
+	//	var success int
+	//	if err := rows.Scan(&rec.ID, &rec.RunID, &rec.EndpointPath, &rec.Method, &rec.SourceFile, &payloadJSON, &headersJSON, &rec.ResponseCode, &rec.ResponseBody, &rec.TaskID, &rec.TaskStatus, &success, &rec.ErrorMessage, &rec.Attempt, &rec.CostMs, &rec.CreatedAt, &rec.FinishedAt); err != nil {
+	//		return nil, err
+	//	}
+	//	rec.Success = success == 1
+	//	_ = json.Unmarshal([]byte(payloadJSON), &rec.RequestPayload)
+	//	_ = json.Unmarshal([]byte(headersJSON), &rec.RequestHeaders)
+	//	out = append(out, rec)
+	//}
 	for rows.Next() {
 		var rec model.CallRecord
 		var payloadJSON, headersJSON string
 		var success int
-		if err := rows.Scan(&rec.ID, &rec.RunID, &rec.EndpointPath, &rec.Method, &rec.SourceFile, &payloadJSON, &headersJSON, &rec.ResponseCode, &rec.ResponseBody, &rec.TaskID, &rec.TaskStatus, &success, &rec.ErrorMessage, &rec.Attempt, &rec.CostMs, &rec.CreatedAt, &rec.FinishedAt); err != nil {
+		var createdAtRaw any
+		var finishedAtRaw any
+
+		if err := rows.Scan(
+			&rec.ID,
+			&rec.RunID,
+			&rec.EndpointPath,
+			&rec.Method,
+			&rec.SourceFile,
+			&payloadJSON,
+			&headersJSON,
+			&rec.ResponseCode,
+			&rec.ResponseBody,
+			&rec.TaskID,
+			&rec.TaskStatus,
+			&success,
+			&rec.ErrorMessage,
+			&rec.Attempt,
+			&rec.CostMs,
+			&createdAtRaw,
+			&finishedAtRaw,
+		); err != nil {
 			return nil, err
 		}
+
+		rec.CreatedAt = scanSQLiteTime(createdAtRaw)
+		rec.FinishedAt = scanSQLiteTime(finishedAtRaw)
 		rec.Success = success == 1
 		_ = json.Unmarshal([]byte(payloadJSON), &rec.RequestPayload)
 		_ = json.Unmarshal([]byte(headersJSON), &rec.RequestHeaders)
+
 		out = append(out, rec)
 	}
 	return out, rows.Err()
