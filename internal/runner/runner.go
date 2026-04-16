@@ -97,7 +97,8 @@ func (r *Runner) RunOnce(ctx context.Context, endpoints []model.Endpoint, mode s
 			}
 			r.metrics.CallCounter.WithLabelValues(rec.EndpointPath, "failed", statusLabel).Inc()
 		}
-		r.metrics.CallDurationMs.WithLabelValues(rec.EndpointPath).Observe(float64(rec.CostMs))
+		r.metrics.CallDurationMs.WithLabelValues(rec.EndpointPath, rec.EndpointPath).Observe(float64(rec.CostMs))
+		//r.metrics.CallDurationMs.WithLabelValues(rec.EndpointPath).Observe(float64(rec.CostMs))
 	}
 
 	run := model.Run{ID: runID, Mode: mode, StartedAt: start, FinishedAt: time.Now().UTC(), EndpointCnt: len(endpoints), TotalCalls: int(total), SuccessCnt: int(successCnt), FailedCnt: int(failedCnt), TimeoutCnt: int(timeoutCnt)}

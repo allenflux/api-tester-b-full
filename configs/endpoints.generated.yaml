@@ -1,4 +1,6801 @@
-generated_at: 0001-01-01T00:00:00Z
-project_root: ""
-router_dirs: []
-endpoints: []
+generated_at: 2026-04-16T03:52:28.557607047Z
+project_root: /workspace/target-project
+router_dirs:
+    - src/routers
+endpoints:
+    - method: GET
+      path: /
+      func_name: index
+      source_file: /workspace/target-project/src/routers/index.py
+      tags:
+        - index
+      has_task_id: false
+      active: true
+      discovery_hash: c4a3b2733c2348a27cf2e4592fa86d6810b0e0f3
+    - method: GET
+      path: /admin/scenes
+      func_name: admin_page
+      source_file: /workspace/target-project/src/routers/scenes_list.py
+      has_task_id: false
+      active: true
+      discovery_hash: b8b033214b609deef85d5354d62d2ca73adde293
+    - method: POST
+      path: /api/analysis/image/feature
+      func_name: analysis_image_feature
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      params:
+        - name: scene_type
+          in: form
+          type: str
+          required: false
+          description: 场景类型
+        - name: image_url
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+      has_task_id: false
+      active: true
+      discovery_hash: 7cc10dbe796974e2aad25621e55d38f1fd9de767
+    - method: POST
+      path: /api/character/images
+      func_name: get_character_image
+      source_file: /workspace/target-project/src/routers/characters.py
+      tags:
+        - characters
+      has_task_id: false
+      active: true
+      discovery_hash: 5e2277e1d067ca4b7f3f26641cbdbc75f55e6f0f
+    - method: POST
+      path: /api/character/scene/images
+      func_name: get_character_scene_image
+      source_file: /workspace/target-project/src/routers/characters.py
+      tags:
+        - characters
+      has_task_id: false
+      active: true
+      discovery_hash: ad35861204569c18b41ae2414f17e2b3554000e6
+    - method: POST
+      path: /api/character/upload
+      func_name: upload_character_image
+      source_file: /workspace/target-project/src/routers/characters.py
+      tags:
+        - characters
+      params:
+        - name: file
+          in: file
+          type: UploadFile
+          required: true
+      has_task_id: false
+      active: true
+      discovery_hash: 5863856419516904639c3dafd9cde4f0e8bf09c8
+    - method: POST
+      path: /api/characters
+      func_name: post_characters
+      source_file: /workspace/target-project/src/routers/characters.py
+      tags:
+        - characters
+      has_task_id: false
+      active: true
+      discovery_hash: 3a2a092e3ddf4377b1d24781708e3cf476b7fba7
+    - method: GET
+      path: /api/comic/combine
+      func_name: combine_comic
+      source_file: /workspace/target-project/src/routers/comic.py
+      tags:
+        - comic
+      has_task_id: false
+      active: true
+      discovery_hash: 094a3e1ac8af8a30c38233b2baba7a93d6a729df
+    - method: POST
+      path: /api/comic/combine
+      func_name: combine_comic
+      source_file: /workspace/target-project/src/routers/comic.py
+      tags:
+        - comic
+      has_task_id: false
+      active: true
+      discovery_hash: df8d6c0677bc0af53d247ec18667b156012661ed
+    - method: GET
+      path: /api/config/scenes
+      func_name: get_video_scenes
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      has_task_id: false
+      active: true
+      discovery_hash: 448f97800d6d4d7cbc4435afab0b86dc7514c9f3
+    - method: POST
+      path: /api/create/features/prompt
+      func_name: create_image_prompt
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      params:
+        - name: scene_type
+          in: form
+          type: str
+          required: false
+          description: 场景类型
+        - name: image_url
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: features
+          in: form
+          type: str
+          required: false
+          description: 图片特征
+        - name: base_prompt
+          in: form
+          type: str
+          required: false
+          description: 基础提示
+        - name: optimized_prompt
+          in: form
+          type: str
+          required: false
+          description: 优化提示
+      has_task_id: false
+      active: true
+      discovery_hash: 45317ec446ac85ba318bfed7454fbd316ca39b0d
+    - method: POST
+      path: /api/facefusion
+      func_name: call_facefusion_api
+      source_file: /workspace/target-project/src/routers/facefusion.py
+      tags:
+        - facefusion
+      has_task_id: false
+      active: true
+      discovery_hash: 9958badf142b1a05995332f1f91e3f7b09ded85e
+    - method: GET
+      path: /api/fiction/details
+      func_name: get_fiction_details
+      source_file: /workspace/target-project/src/routers/fiction.py
+      tags:
+        - fiction
+      has_task_id: false
+      active: true
+      discovery_hash: d9588becd9c49f12fa2cf0013683aa64a3b690b5
+    - method: GET
+      path: /api/file
+      func_name: file
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      has_task_id: false
+      active: true
+      discovery_hash: 239ee2436bcec4aae1fbd322ac2c0bdb330b1c27
+    - method: POST
+      path: /api/generate/audio
+      func_name: generate_audio
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: 92afb666d981c1aa104e1c9a81a283bc50801de8
+    - method: POST
+      path: /api/generate/audio1
+      func_name: generate_audio
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: 57ba5a17805d709768c09dbdabb9b7294fc66cd7
+    - method: GET
+      path: /api/generate/character/scene/images
+      func_name: get
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: f653edfdbeb7b52046096f675b4fbb5469cdb7a0
+    - method: POST
+      path: /api/generate/character/scene/images
+      func_name: generate_character_scene_images
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: e183bb05f84d36e02f91e4dcc6eba045b19e0c0e
+    - method: POST
+      path: /api/generate/cosy_voice
+      func_name: generate_audio
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: 04c8fb730bd8e9bca39d6979535fc71d7b51784b
+    - method: POST
+      path: /api/generate/fiction
+      func_name: generate_fiction
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: a331108d2db6c6bf0bc370342078696103962505
+    - method: POST
+      path: /api/generate/images
+      func_name: generate_images
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: 6e566f66f51f41db07993d3e4e77c1532826d222
+    - method: POST
+      path: /api/generate/prompt/images
+      func_name: generate_prompt_images
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: 634704ab089610925ff11773a1c53b37264ea842
+    - method: POST
+      path: /api/generate/scene/images_by_url
+      func_name: generate_character_scene_image
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: e24f6995aa306665e45c177cc874b9b1f10cac36
+    - method: POST
+      path: /api/generate/script
+      func_name: generate_script
+      source_file: /workspace/target-project/src/routers/generator.py
+      tags:
+        - generator
+      has_task_id: true
+      active: true
+      discovery_hash: ddf193e86b9534fb7a737950ee1a4d389ddc2b54
+    - method: POST
+      path: /api/model_styles/add
+      func_name: get_model_styles_add
+      source_file: /workspace/target-project/src/routers/model_styles.py
+      tags:
+        - model_styles
+      has_task_id: false
+      active: true
+      discovery_hash: d7ba8793dd972002dc2c3f02f84dccdf4dc86290
+    - method: GET
+      path: /api/model_styles/list
+      func_name: get_model_styles_list
+      source_file: /workspace/target-project/src/routers/model_styles.py
+      tags:
+        - model_styles
+      has_task_id: false
+      active: true
+      discovery_hash: 315338f94868c52ccac7f6053936d32812296e85
+    - method: POST
+      path: /api/mq/queues/action
+      func_name: queues_action
+      source_file: /workspace/target-project/src/routers/mq.py
+      tags:
+        - mq
+      params:
+        - name: action
+          in: form
+          type: str
+          required: false
+          description: action
+      has_task_id: false
+      active: false
+      discovery_hash: d8b91a195a6549c9feecb9e26debac57201a612a
+    - method: GET
+      path: /api/mq/queues/qos
+      func_name: get_qos_status
+      source_file: /workspace/target-project/src/routers/mq.py
+      tags:
+        - mq
+      has_task_id: false
+      active: true
+      discovery_hash: a80f327ad0a2846f8c3ccea844aec16582609ae6
+    - method: GET
+      path: /api/mq/queues/status
+      func_name: get_queues_status
+      source_file: /workspace/target-project/src/routers/mq.py
+      tags:
+        - mq
+      has_task_id: false
+      active: true
+      discovery_hash: 0030387b271e280bdb0bde9a59964ab6dda6d503
+    - method: GET
+      path: /api/output
+      func_name: output
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      has_task_id: false
+      active: true
+      discovery_hash: 08fe4eeb22c01134cdc20d80073ae445916e2228
+    - method: GET
+      path: /api/permanent
+      func_name: permanent
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      has_task_id: false
+      active: true
+      discovery_hash: 03c8a3306f926af036e70266fc25fd2791d1becd
+    - method: POST
+      path: /api/public/ai_chuangzao_chaoqing_fangda
+      func_name: ai_chuangzao_chaoqing_fangda
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: video_url
+          in: form
+          type: str
+          required: true
+          description: 视频URL
+        - name: max_side
+          in: form
+          type: int
+          required: false
+          default: "1280"
+          description: 最长边
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 565a3ef251107242c09b4a9a490f272e84a2017f
+    - method: POST
+      path: /api/public/ai_chuangzao_chaoqing_fangda_2
+      func_name: ai_chuangzao_chaoqing_fangda_2
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: video_url
+          in: form
+          type: str
+          required: true
+          description: 视频URL
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: a22a7c9d95554500b91a2716a12363674361eaeb
+    - method: POST
+      path: /api/public/ai_chuangzuo_tushengshipin
+      func_name: ai_chuangzuo_tushengshipin
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: frame_count
+          in: form
+          type: int
+          required: false
+          default: "81"
+          description: 总帧数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 9b6e56683614383faf5665666289ddd1aa7d370b
+    - method: POST
+      path: /api/public/ai_chuangzuo_wenshengshipin
+      func_name: ai_chuangzuo_wenshengshipin
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 视频宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 视频高度
+        - name: lora_list
+          in: form
+          type: str
+          required: false
+          description: lora列表([{
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 9a4ff52ad97a0589f5d7ee14e20abd7e041823c3
+    - method: POST
+      path: /api/public/ai_chuangzuo_wenshengtu_dongman_fengge
+      func_name: ai_chuangzuo_wenshengtu_dongman_fengge
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: cfg_scale
+          in: form
+          type: float
+          required: false
+          description: 提示词系数
+        - name: sampler
+          in: form
+          type: str
+          required: false
+          description: 采样方法
+        - name: steps
+          in: form
+          type: int
+          required: false
+          description: 采样步数
+        - name: seed
+          in: form
+          type: int
+          required: false
+          description: 随机种子
+        - name: lora_list
+          in: form
+          type: str
+          required: false
+          description: lora列表([{
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 5976b305c800a51e4b26cf39cc52a8d10a49aeaf
+    - method: POST
+      path: /api/public/ai_chuangzuo_wenshengtu_xieshi_fengge
+      func_name: ai_chuangzuo_wenshengtu_xieshi_fengge
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: cfg_scale
+          in: form
+          type: float
+          required: false
+          description: 提示词系数
+        - name: sampler
+          in: form
+          type: str
+          required: false
+          description: 采样方法
+        - name: steps
+          in: form
+          type: int
+          required: false
+          description: 采样步数
+        - name: seed
+          in: form
+          type: int
+          required: false
+          description: 随机种子
+        - name: lora_list
+          in: form
+          type: str
+          required: false
+          description: lora列表([{
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 367c157fa243f0f553c9f4bbba0af2e239f3626e
+    - method: POST
+      path: /api/public/callback/task-result
+      func_name: receive_task_callback
+      source_file: /workspace/target-project/src/routers/callback.py
+      tags:
+        - public
+      has_task_id: false
+      active: true
+      discovery_hash: 14af16844dcff341d601a03e02bab5e56d3fb714
+    - method: POST
+      path: /api/public/dispatcher/generate/tattoos
+      func_name: generate_tattoos
+      source_file: /workspace/target-project/src/routers/submit_task_2_dispatcher.py
+      tags:
+        - public
+      params:
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: aa6e132511bf419c05fddad84edc2491f787eaa3
+    - method: POST
+      path: /api/public/dispatcher/generate/undress/images
+      func_name: generate_undress_images
+      source_file: /workspace/target-project/src/routers/submit_task_2_dispatcher.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 1fb0b58030382126a6ab8cd3af6c769bcda007b9
+    - method: POST
+      path: /api/public/dongzuo_kelong_shengshipin
+      func_name: dongzuo_kelong_shengshipin
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: true
+          description: 图片，源图片
+        - name: target_path
+          in: form
+          type: str
+          required: true
+          description: 视频，目标视频
+        - name: positive_prompt
+          in: form
+          type: str
+          required: false
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 54959a7640f2457485bea6b41fae2e411f919bc9
+    - method: POST
+      path: /api/public/dongzuo_kelong_shengtu
+      func_name: dongzuo_kelong_shengtu
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img1_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: img2_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: false
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 7729a012268ddd62943385e2fbac2432dfbfeb4a
+    - method: POST
+      path: /api/public/frwi/clothes-swap-images
+      func_name: clothes_swap_images
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: clothes_image
+          in: form
+          type: str
+          required: false
+          description: 衣服图片
+        - name: person_image
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: ebb73d8292b608470d911fcf2034329870ebff3b
+    - method: POST
+      path: /api/public/frwi/clothes-swap-video
+      func_name: clothes_swap_video
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: clothes_image
+          in: form
+          type: str
+          required: false
+          description: 衣服图片
+        - name: person_image
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: a351cd66e3d8d15b68eafd1db9d43d4ad9d83a35
+    - method: POST
+      path: /api/public/frwi/image-to-video
+      func_name: image_to_video
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: ebfeec91e7915babb6df6909161eae81174b7b6d
+    - method: POST
+      path: /api/public/frwi/img2img-action-editing
+      func_name: img2img_action_editing
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image1
+          in: form
+          type: str
+          required: false
+          description: 角色1
+        - name: image2
+          in: form
+          type: str
+          required: false
+          description: 角色2
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 3fdf6397dc8d7f03d2e8056a2b24f6e2fe70c546
+    - method: POST
+      path: /api/public/frwi/img2img-background-transfer
+      func_name: img2img_background_transfer
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片,原图
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 39b494eca08f44bcd56c127670f60e7fdbe639ce
+    - method: POST
+      path: /api/public/frwi/img2img-controlnet-transfer
+      func_name: img2img_controlnet_transfer
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      has_task_id: false
+      active: true
+      discovery_hash: 26f85524a31e36e26ad5e0c9cbec663c9c42a652
+    - method: POST
+      path: /api/public/frwi/img2img-flux-controlnet-inpaint
+      func_name: img2img_flux_controlnet_inpaint
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      has_task_id: false
+      active: true
+      discovery_hash: 05f05e421e966ab039417ae74e5dbb3d391e91a9
+    - method: POST
+      path: /api/public/frwi/img2img-inpaint-transfer
+      func_name: img2img_inpaint_transfer
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      has_task_id: false
+      active: true
+      discovery_hash: bb217c954faa66ddfef5de95204b2944bc71db11
+    - method: POST
+      path: /api/public/frwi/img2img-style-change
+      func_name: img2img_style_change
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片,原图
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 1d34a86ddb1643a26ee97f4790d811fe6088ca9f
+    - method: POST
+      path: /api/public/frwi/img2img-style-scene-v2
+      func_name: img2img_style_scene_v2
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: man_image
+          in: form
+          type: str
+          required: false
+          description: 图片,man
+        - name: woman_image
+          in: form
+          type: str
+          required: false
+          description: 图片,woman
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 5098ff735e133be0e6151d1ff25f6e1a0040b49c
+    - method: POST
+      path: /api/public/frwi/img2img-style-scene-v3
+      func_name: img2img_style_scene_v3
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片,man
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: fc23842783490713ed9276e20d3b90df04e909df
+    - method: POST
+      path: /api/public/frwi/img2img-style-scene-v4
+      func_name: img2img_style_scene_v4
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: fe0df9ac261a9e6cd698d8c88ec6ec6bfaf0df44
+    - method: POST
+      path: /api/public/frwi/img2img-style-transfer
+      func_name: img2img_style_transfer
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: c3ad9499d81213e31c17ab2f5124cb99ef230f6d
+    - method: POST
+      path: /api/public/frwi/img2img-style-transfer-v2
+      func_name: img2img_style_transfer_v2
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片,原图
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 78576153a7bd2f3f3c6464fa926d4519d1d4f349
+    - method: POST
+      path: /api/public/frwi/img2img-upscale-fix-url
+      func_name: img2img_upscale_fix_url
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片,原图
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 5f75eb97ac1ed1c5c56e4227af45844351e15d0d
+    - method: POST
+      path: /api/public/frwi/img2img_style_scene
+      func_name: img2img_style_scene
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: image
+          in: form
+          type: str
+          required: false
+          description: 图片,原图
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 7c4ecb6593b5713ce07522bc8c2898c1a3b5952c
+    - method: POST
+      path: /api/public/frwi/start-end-video
+      func_name: start_end_video
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: startframe
+          in: form
+          type: str
+          required: false
+          description: 图片，开始帧
+        - name: endframe
+          in: form
+          type: str
+          required: false
+          description: 图片，结束帧
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 3d6a47cba1567f4ef4c013fb1cfa86f1e9b6c308
+    - method: POST
+      path: /api/public/frwi/text-to-video
+      func_name: text_to_video
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: bc8fa7aa26d584937ab42744c4a454663942e407
+    - method: POST
+      path: /api/public/frwi/text2img-cartoon
+      func_name: text2img_cartoon
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 643f25c8aad0ec9d26749a7052af6f4c484146cc
+    - method: POST
+      path: /api/public/frwi/video2video-upscale
+      func_name: video2video_upscale
+      source_file: /workspace/target-project/src/routers/frwi.py
+      tags:
+        - frwi_old
+      params:
+        - name: video
+          in: form
+          type: str
+          required: false
+          description: 视频
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知 url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 46a01740088d399064e70c1592b444f8cb6c7e8b
+    - method: POST
+      path: /api/public/generate/audio
+      func_name: generate_audio
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: text
+          in: form
+          type: str
+          required: false
+          description: 内容
+        - name: spk_id
+          in: form
+          type: str | None
+          required: false
+          default: 中文女
+          description: 声音类型
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: notify_url
+          in: form
+          type: str | None
+          required: false
+          default: None
+          description: 通知回调URL
+      has_task_id: true
+      active: true
+      discovery_hash: 84e987e996019b8a88f557a58a777c8aa51ff1e0
+    - method: GET
+      path: /api/public/generate/audio/list
+      func_name: get_available_speakers
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      has_task_id: true
+      active: true
+      discovery_hash: 5f0097f81b0ab89403011a35822c9d8baa1874c1
+    - method: POST
+      path: /api/public/generate/audio/upload
+      func_name: upload_custom_speaker_prompt
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: spk_id
+          in: form
+          type: str
+          required: true
+          description: 音色ID
+        - name: prompt_text
+          in: form
+          type: str
+          required: true
+          description: 音色提示文本
+        - name: prompt_audio
+          in: file
+          type: UploadFile
+          required: true
+          description: 音色提示音频（WAV格式，5-30秒）
+      has_task_id: true
+      active: true
+      discovery_hash: c36b538b24f77eccee8a27a69a3c8f7f72b4add2
+    - method: POST
+      path: /api/public/generate/clothes-swap/images
+      func_name: generate_clothes_swap
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 源图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 2e2c487876c166bd64cff7dc3037b0faeb94ad4b
+    - method: POST
+      path: /api/public/generate/demo
+      func_name: generate_demo
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 源图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 目标图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 69cc9c3d3fabdb0acd9fae6ebcaca69b27313d11
+    - method: POST
+      path: /api/public/generate/face-swap
+      func_name: generate_face_swap
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 脸部源
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 目标图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: c0763135c6e5594e8bc4863a492d09fb2ed71670
+    - method: POST
+      path: /api/public/generate/face-swap/video
+      func_name: generate_face_swap_video
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 图片，源图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 视频，目标视频
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 2f88944f9fbe873d52480b45c3ba8c0aeb785c8b
+    - method: POST
+      path: /api/public/generate/face-swap/video/test
+      func_name: generate_face_swap_video_0129
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 图片，源图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 视频，目标视频
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 0bf63db828307ac8281de6d5067082859c243d81
+    - method: POST
+      path: /api/public/generate/image2image
+      func_name: generate_image2image
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 源图片
+        - name: prompt
+          in: form
+          type: str
+          required: false
+          description: 描述图像内容的正向提示字符串
+        - name: height
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像高度
+        - name: width
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像宽度
+        - name: batch_size
+          in: form
+          type: int | None
+          required: false
+          default: "4"
+          description: 生成图像张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 2b78d69b15df7c8f1148a13d10af09accf51b761
+    - method: POST
+      path: /api/public/generate/kiss/video
+      func_name: generate_kiss_video
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: first_image
+          in: form
+          type: str
+          required: false
+          description: 第一张图片
+        - name: end_image
+          in: form
+          type: str
+          required: false
+          description: 第二张图片
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: cac6a1f3d8a0f24df3aa1dbeaaecee88b64e7b38
+    - method: POST
+      path: /api/public/generate/novel
+      func_name: generate_novel
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: description
+          in: form
+          type: str
+          required: false
+          description: 剧情描述/故事情节
+        - name: character_setting
+          in: form
+          type: str
+          required: false
+          description: 人物设定
+        - name: location_scene
+          in: form
+          type: str
+          required: false
+          description: 地点场景
+        - name: details
+          in: form
+          type: str
+          required: false
+          description: 细节说明/其他要求
+        - name: count
+          in: form
+          type: int
+          required: false
+          default: "4000"
+          description: 小说字数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: notify_url
+          in: form
+          type: str | None
+          required: false
+          default: None
+          description: 通知回调URL
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 6c489cf3046aa213e31300d6922c46645715e5c7
+    - method: POST
+      path: /api/public/generate/pose_transfer/video
+      func_name: generate_pose_transfer_video
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 图片，源图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 视频，目标视频
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 062a39df49a1e041e5dc10ce613f1a596920bfac
+    - method: POST
+      path: /api/public/generate/tattoos
+      func_name: generate_tattoos
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: d5fe5536c8ae5b7330e2646f6c209af5c43b2fb6
+    - method: POST
+      path: /api/public/generate/text2image
+      func_name: generate_text2image
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: prompt
+          in: form
+          type: str
+          required: false
+          description: 描述图像内容的正向提示字符串
+        - name: height
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像高度
+        - name: width
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像宽度
+        - name: batch_size
+          in: form
+          type: int | None
+          required: false
+          default: "4"
+          description: 生成图像张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: d80dcbb603a86705a6cf608471c45bf1610a7b69
+    - method: POST
+      path: /api/public/generate/text2image/2d
+      func_name: generate_text2image_2d
+      source_file: /workspace/target-project/src/routers/text_2_img_public.py
+      tags:
+        - public
+      params:
+        - name: prompt
+          in: form
+          type: str
+          required: true
+          description: 描述图像内容的正向提示
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: 应用ID
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: 幂等Key
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID（可选）
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 52bb6c4fcc0c5df622d0efb5e8b3b9f6df9e3d79
+    - method: POST
+      path: /api/public/generate/text2image/3d
+      func_name: generate_text2image_3d
+      source_file: /workspace/target-project/src/routers/text_2_img_public.py
+      tags:
+        - public
+      params:
+        - name: prompt
+          in: form
+          type: str
+          required: true
+        - name: bid
+          in: form
+          type: str
+          required: false
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+        - name: title
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+        - name: app_id
+          in: form
+          type: str
+          required: false
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+      has_task_id: true
+      active: true
+      discovery_hash: 2557f49e8eedb2bbc40fc0d39a908d73e0e9d822
+    - method: POST
+      path: /api/public/generate/text2image/anime
+      func_name: generate_text2image_anime
+      source_file: /workspace/target-project/src/routers/text_2_img_public.py
+      tags:
+        - public
+      params:
+        - name: prompt
+          in: form
+          type: str
+          required: true
+        - name: bid
+          in: form
+          type: str
+          required: false
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+        - name: title
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+        - name: app_id
+          in: form
+          type: str
+          required: false
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+      has_task_id: true
+      active: true
+      discovery_hash: 59bf647d9c278e7df0e77894c3d89fc5e32e6615
+    - method: POST
+      path: /api/public/generate/ttsv2
+      func_name: ttsv2_generate_audio
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: text
+          in: form
+          type: str
+          required: true
+          description: 内容
+        - name: spk_id
+          in: form
+          type: str
+          required: true
+          description: 声音类型
+        - name: use_emo
+          in: form
+          type: bool
+          required: false
+          description: 是否使用情感
+        - name: emo_type
+          in: form
+          type: str
+          required: false
+          description: 情感类型
+        - name: emo_text
+          in: form
+          type: str
+          required: false
+          description: 情感文本
+        - name: emo_alpha
+          in: form
+          type: float
+          required: false
+          description: 情感强度
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知回调URL
+      has_task_id: true
+      active: true
+      discovery_hash: 60eade72610b4a7e61189224fbc7f9ef453b9695
+    - method: POST
+      path: /api/public/generate/ttsv2/speaker
+      func_name: ttsv2_speaker
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: spk_name
+          in: form
+          type: str
+          required: false
+          description: 音色名称
+        - name: audio
+          in: file
+          type: UploadFile
+          required: true
+          description: 音色提示音频（WAV格式，1-30秒）
+      has_task_id: true
+      active: true
+      discovery_hash: 75a135e5b82694d0826ff4a1530715f6607d07b2
+    - method: GET
+      path: /api/public/generate/ttsv2/speakers
+      func_name: ttsv2_speakers
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      has_task_id: true
+      active: true
+      discovery_hash: 74325bf451a14cb94a12f455f544959e47332dc8
+    - method: POST
+      path: /api/public/generate/undress
+      func_name: generate_undress_video
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: bf75fa958974b872eba1e056295aac7dce34b003
+    - method: POST
+      path: /api/public/generate/undress/anime
+      func_name: generate_undress_anime_image
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 40c801695cf95b94bee029fa17b5f8414b5be8ed
+    - method: POST
+      path: /api/public/generate/undress/anime/video
+      func_name: generate_undress_anime_video
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: qwen_incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: wan_incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: 57d69d446cfc92e3d3ffa5040858a379e58f5153
+    - method: POST
+      path: /api/public/generate/undress/images/male
+      func_name: generate_undress_images_male
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 20b94a80f77e1894ce17ba5611974453e35d8740
+    - method: POST
+      path: /api/public/generate/videos/scenes/double
+      func_name: generate_videos_double_scenes
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 女性图
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 男性图
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 8a0819b387fb0c8a64ffd9925fed31c1474b27de
+    - method: GET
+      path: /api/public/generate/videos/scenes/list
+      func_name: funcs_list
+      source_file: /workspace/target-project/src/routers/demo.py
+      tags:
+        - index
+      has_task_id: true
+      active: true
+      discovery_hash: cf23a92a4ee93226985359fd8e0fa58082f791f2
+    - method: POST
+      path: /api/public/generate/videos/scenes/prompt
+      func_name: generate_videos_scenes
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 1468662a6ccb8384ceacbf9e4e6e232a06ee9349
+    - method: POST
+      path: /api/public/generate/videos/scenes/qwen
+      func_name: generate_videos_qwen_scenes
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 原始图
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 参考图
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+      has_task_id: true
+      active: true
+      discovery_hash: ef628566eaa1fbe2c7abebeb03162b83bcea8197
+    - method: POST
+      path: /api/public/generate/videos/scenes/webp/prompt
+      func_name: generate_videos_scenes_webp
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: fd8fdc539b47951e279a5b2408d9bcb217142266
+    - method: POST
+      path: /api/public/heibai_zhaoxiufu
+      func_name: heibai_zhaoxiufu
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 1662f850eeba544736a96a3cd0ede510e37fb601
+    - method: POST
+      path: /api/public/huanlian
+      func_name: huanlian
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: video_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "480"
+          description: 视频宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "832"
+          description: 视频高度
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 41ecce19483bf775aaf786fe52cd73c2b9b8dd41
+    - method: POST
+      path: /api/public/huanlian_2
+      func_name: huanlian_2
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img1_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: img2_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: ee064432da165874b997f88e5c0e9c85c5dba4d9
+    - method: POST
+      path: /api/public/huanzhuang
+      func_name: huanzhuang
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: clothes_img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: people_img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 2c53a31ae661ed2a0859ecd8f2647d44b50e235c
+    - method: POST
+      path: /api/public/manju_shouwei_zhen
+      func_name: manju_shouwei_zhen
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: first_img_url
+          in: form
+          type: str
+          required: true
+          description: 首图URL
+        - name: last_img_url
+          in: form
+          type: str
+          required: true
+          description: 尾图URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "480"
+          description: 视频宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "832"
+          description: 视频高度
+        - name: frame_count
+          in: form
+          type: int
+          required: false
+          default: "81"
+          description: 总帧数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 267372d0eec4d26666ec4956f62ebfa415fb71ef
+    - method: POST
+      path: /api/public/manju_tushengshipin
+      func_name: manju_tushengshipin
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "480"
+          description: 视频宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "832"
+          description: 视频高度
+        - name: frame_count
+          in: form
+          type: int
+          required: false
+          default: "81"
+          description: 总帧数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: afba20b1d39aebfed9a85cd82b75421eacaeb241
+    - method: POST
+      path: /api/public/manju_tushengtu_1
+      func_name: manju_tushengtu_1
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 7ac6d839059c381f218c4efeae3b1edbd3ef3a1c
+    - method: POST
+      path: /api/public/manju_tushengtu_2
+      func_name: manju_tushengtu_2
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: female_img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: male_img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: dee06ba2f2034df08085ee9e02805d5ff6a357da
+    - method: POST
+      path: /api/public/manju_tushengtu_3
+      func_name: manju_tushengtu_3
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 991a1068281e09a6aa41ca068f8725961b4eb60a
+    - method: POST
+      path: /api/public/manju_tushengtu_4
+      func_name: manju_tushengtu_4
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: a027840f0b06665f20acdef3b412d7831582aa17
+    - method: POST
+      path: /api/public/manju_tushengtu_dongman_fengge
+      func_name: manju_tushengtu_dongman_fengge
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: eaf7725180c66f17a4dd581520a770d628094cc8
+    - method: POST
+      path: /api/public/manju_wenshengtu_juese_shengcheng
+      func_name: manju_wenshengtu_juese_shengcheng
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: b2fedf1a84633c84f6ac970e5177efab65c1e96e
+    - method: POST
+      path: /api/public/orchestrator/generate/images
+      func_name: orchestrator_generate_images
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 参考图片
+        - name: method
+          in: form
+          type: str
+          required: false
+          default: "1"
+          description: 方式
+        - name: prompt
+          in: form
+          type: str
+          required: false
+          description: 提示词，例如：漂亮长发,苗条高挑
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 负面提示词
+        - name: size
+          in: form
+          type: str
+          required: false
+          default: 720X960
+          description: 尺寸
+        - name: batch_count
+          in: form
+          type: str
+          required: false
+          default: "1"
+          description: 生成套数
+        - name: batch_size
+          in: form
+          type: str
+          required: false
+          default: "3"
+          description: 每套出图数
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 描述，例如：一个女孩子
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: style
+          in: form
+          type: str
+          required: false
+          default: anime
+          description: 風格名稱(realisic, anime, wai)
+        - name: strength
+          in: form
+          type: str
+          required: false
+          default: "0.5"
+          description: 風格轉換強度(0.5~0.9)
+        - name: notify_url
+          in: form
+          type: str | None
+          required: false
+          default: None
+          description: 通知回调URL
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+      has_task_id: true
+      active: true
+      discovery_hash: 3513bfdbffde7d442bb3c65bbfff962579cedae3
+    - method: POST
+      path: /api/public/scenes/add
+      func_name: scenes_add
+      source_file: /workspace/target-project/src/routers/scenes_list.py
+      tags:
+        - scenes_list
+      has_task_id: false
+      active: true
+      discovery_hash: 05af2769d3f8f71a80b8014e3de0dc9507080fde
+    - method: POST
+      path: /api/public/scenes/delete
+      func_name: scenes_delete
+      source_file: /workspace/target-project/src/routers/scenes_list.py
+      tags:
+        - scenes_list
+      has_task_id: false
+      active: true
+      discovery_hash: e9b3f6df0a4ab09588c60a2e5c91f97be596f4f1
+    - method: GET
+      path: /api/public/scenes/list
+      func_name: scenes_list
+      source_file: /workspace/target-project/src/routers/scenes_list.py
+      tags:
+        - scenes_list
+      has_task_id: false
+      active: true
+      discovery_hash: 2efef7674814fddc210f6c8de0768d9e361d52f4
+    - method: POST
+      path: /api/public/scenes/update
+      func_name: scenes_update
+      source_file: /workspace/target-project/src/routers/scenes_list.py
+      tags:
+        - scenes_list
+      has_task_id: false
+      active: true
+      discovery_hash: c5288afe71b288e7e2214f4115fd2c02c1ac5370
+    - method: POST
+      path: /api/public/scenes/upload
+      func_name: scenes_upload
+      source_file: /workspace/target-project/src/routers/scenes_list.py
+      tags:
+        - scenes_list
+      has_task_id: false
+      active: true
+      discovery_hash: 491eb54ea4c747d44949c3f14bbb20c17a0d785e
+    - method: POST
+      path: /api/public/shipin_huanyi
+      func_name: shipin_huanyi
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: first_img_url
+          in: form
+          type: str
+          required: true
+          description: 首图URL
+        - name: last_img_url
+          in: form
+          type: str
+          required: true
+          description: 尾图URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "480"
+          description: 视频宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "832"
+          description: 视频高度
+        - name: frame_count
+          in: form
+          type: int
+          required: false
+          default: "81"
+          description: 总帧数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: b07856d690cbe0ff70b48557e728c3f1be4784c7
+    - method: GET
+      path: /api/public/task
+      func_name: get_task
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      has_task_id: false
+      active: true
+      discovery_hash: caf2047ec563fe4907e543303c22928eeb5b8a6a
+    - method: POST
+      path: /api/public/task/details
+      func_name: batch_get_task
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      has_task_id: false
+      active: true
+      discovery_hash: ea5b86743fa1524a0f467f0c3af8c8973bb64560
+    - method: GET
+      path: /api/public/task/list
+      func_name: get_task_list
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      has_task_id: false
+      active: true
+      discovery_hash: b018dd68f20d9e4ff7db1a39e69ef0954ae7e04f
+    - method: GET
+      path: /api/public/task/queue
+      func_name: get_task_queue
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      has_task_id: false
+      active: true
+      discovery_hash: e0e23c606ef9d849c0a62fc8ef0a5791715b13a0
+    - method: POST
+      path: /api/public/tushengtu
+      func_name: tushengtu
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: edf19dd95ca46c2ce9c1ef178cc628eb9a737572
+    - method: POST
+      path: /api/public/tushengtu_beiying_zhuanhuan
+      func_name: tushengtu_beiying_zhuanhuan
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img1_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: img2_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 290b98eda0a8aee0c6544d552a41ca01531248ed
+    - method: POST
+      path: /api/public/tushengtu_dongzuo_bianji
+      func_name: tushengtu_dongzuo_bianji
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: source_img1_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: source_img2_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 69f8d32f8880f71a24ffaf03bd7bf17830c8d156
+    - method: POST
+      path: /api/public/tushengtu_fengge_zhuanhuan
+      func_name: tushengtu_fengge_zhuanhuan
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: width
+          in: form
+          type: int
+          required: false
+          default: "800"
+          description: 图片宽度
+        - name: height
+          in: form
+          type: int
+          required: false
+          default: "600"
+          description: 图片高度
+        - name: batch_size
+          in: form
+          type: int
+          required: false
+          description: 图片张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: d396719714f5bcd4d4c626b03fbab3cd772b4345
+    - method: POST
+      path: /api/public/tushengtu_jubu_tuya
+      func_name: tushengtu_jubu_tuya
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: mask_url
+          in: form
+          type: str
+          required: true
+          description: mask URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: fb2fe1d6b490f56608fb5aaad94a97da37291da1
+    - method: POST
+      path: /api/public/tushengtu_tuya_chonghui
+      func_name: tushengtu_tuya_chonghui
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: 5fcf235e9222836a1165dd60a6f15a2ba65c4e1a
+    - method: POST
+      path: /api/public/tushengtu_tuya_chonghui_2
+      func_name: tushengtu_tuya_chonghui_2
+      source_file: /workspace/target-project/src/routers/frw_workflow_integration.py
+      tags:
+        - frwi
+      params:
+        - name: img_url
+          in: form
+          type: str
+          required: true
+          description: URL
+        - name: positive_prompt
+          in: form
+          type: str
+          required: true
+          description: 正向提示词
+        - name: negative_prompt
+          in: form
+          type: str
+          required: false
+          description: 反向提示词
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 回调地址
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+          description: hash key
+        - name: fee
+          in: form
+          type: int
+          required: false
+          description: 费用
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID，不传自动生成
+      has_task_id: true
+      active: true
+      discovery_hash: f8f1aa8c7ac4b331626b4de923641e951db304da
+    - method: POST
+      path: /api/public/v2/generate/undress/images
+      func_name: generate_undress_images
+      source_file: /workspace/target-project/src/routers/public.py
+      tags:
+        - public
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 31f6ef2093ec02104a63370347bb0f1dac367bde
+    - method: POST
+      path: /api/rag/optimize/scene_prompt
+      func_name: rag_optimize_scene_prompt
+      source_file: /workspace/target-project/src/routers/rag.py
+      tags:
+        - rag
+      has_task_id: false
+      active: true
+      discovery_hash: c232fd9220f501c5ff2dbde278985be8b094b9d3
+    - method: GET
+      path: /api/scene
+      func_name: get_scenes
+      source_file: /workspace/target-project/src/routers/scene.py
+      tags:
+        - scene
+      has_task_id: false
+      active: true
+      discovery_hash: bf3fdb2065b3500c8253c38f1e3da629357e8ce1
+    - method: POST
+      path: /api/scene
+      func_name: post_scenes
+      source_file: /workspace/target-project/src/routers/scene.py
+      tags:
+        - scene
+      has_task_id: false
+      active: true
+      discovery_hash: 338c076d40a7165fa6689f594f6d3f718ef58975
+    - method: GET
+      path: /api/script/characters
+      func_name: get_character_info
+      source_file: /workspace/target-project/src/routers/script.py
+      tags:
+        - script
+      has_task_id: false
+      active: true
+      discovery_hash: 4fa0215b970d411f37d2e2ad7187234bfbddf425
+    - method: GET
+      path: /api/script/details
+      func_name: get_script_details
+      source_file: /workspace/target-project/src/routers/script.py
+      tags:
+        - script
+      has_task_id: false
+      active: true
+      discovery_hash: aac03f6853f3a0637927dd003bf1018f649d7f31
+    - method: GET
+      path: /api/script/list
+      func_name: get_script_list
+      source_file: /workspace/target-project/src/routers/script.py
+      tags:
+        - script
+      has_task_id: false
+      active: true
+      discovery_hash: 797448346bc70e445e4fbeb3e1514f778e70c450
+    - method: GET
+      path: /api/tasks/list
+      func_name: tasks_list
+      source_file: /workspace/target-project/src/routers/tasks.py
+      tags:
+        - tasks
+      params:
+        - name: page
+          in: query
+          type: int
+          required: false
+        - name: page_size
+          in: query
+          type: int
+          required: false
+        - name: task_id
+          in: query
+          type: str
+          required: false
+        - name: hash_key
+          in: query
+          type: str
+          required: false
+        - name: start_time
+          in: query
+          type: str
+          required: false
+          description: ISO 8601
+        - name: end_time
+          in: query
+          type: str
+          required: false
+          description: ISO 8601
+      has_task_id: true
+      active: true
+      discovery_hash: 9cb6ac8b573c79f061cc711a6a144062e608a09c
+    - method: POST
+      path: /api/tasks/regenerate
+      func_name: tasks_regenerate
+      source_file: /workspace/target-project/src/routers/tasks.py
+      tags:
+        - tasks
+      has_task_id: false
+      active: true
+      discovery_hash: fd72874f925345feb810b7151783e6d599e46c2c
+    - method: POST
+      path: /api/token
+      func_name: login_for_access_token
+      source_file: /workspace/target-project/src/routers/token.py
+      tags:
+        - token
+      has_task_id: false
+      active: true
+      discovery_hash: ff6dbcc484ead9c855199815d4dcf7b4a12a1d87
+    - method: POST
+      path: /api/upload
+      func_name: upload_file
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      params:
+        - name: file
+          in: file
+          type: UploadFile
+          required: true
+      has_task_id: false
+      active: true
+      discovery_hash: 4ddff9f86819454db5d28ccb9fd7792b4e85b109
+    - method: POST
+      path: /api/upload/permanent
+      func_name: upload_permanent
+      source_file: /workspace/target-project/src/routers/utils.py
+      tags:
+        - utils
+      has_task_id: false
+      active: true
+      discovery_hash: f2199d83e70e9de396f961519e4edd6cebe22ac9
+    - method: GET
+      path: /api/users/me
+      func_name: read_users_me
+      source_file: /workspace/target-project/src/routers/users.py
+      tags:
+        - users
+      has_task_id: false
+      active: true
+      discovery_hash: 76985f848d6dc7f5dce35d5cb76025b90f2a7db0
+    - method: POST
+      path: /api/users/registration
+      func_name: registration
+      source_file: /workspace/target-project/src/routers/users.py
+      tags:
+        - users
+      has_task_id: false
+      active: true
+      discovery_hash: 46457621ac6279685d408c332e2dad07bed7be40
+    - method: GET
+      path: /api/users/{username}
+      func_name: read_own_items
+      source_file: /workspace/target-project/src/routers/users.py
+      tags:
+        - users
+      has_task_id: false
+      active: true
+      discovery_hash: 026f815fc631878af4aca789bbc04a77e31e28da
+    - method: POST
+      path: /api/webhook/callback
+      func_name: receive_webhook
+      source_file: /workspace/target-project/src/routers/webhook_receiver.py
+      has_task_id: false
+      active: true
+      discovery_hash: ac226a1e547129098237e51d74980959cfb7d4b3
+    - method: GET
+      path: /api/workflow/bid
+      func_name: get_mqtask_by_bid
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: bid
+          in: query
+          type: str
+          required: true
+          description: 业务编号
+      has_task_id: false
+      active: true
+      discovery_hash: 375ab09f12b5e73db4ccf25371304b65794b435e
+    - method: POST
+      path: /api/workflow/generate/audio
+      func_name: generate_audio
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: text
+          in: form
+          type: str
+          required: false
+          description: 内容
+        - name: spk_id
+          in: form
+          type: str | None
+          required: false
+          default: 中文女
+          description: 声音类型
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: notify_url
+          in: form
+          type: str | None
+          required: false
+          default: None
+          description: 通知回调URL
+      has_task_id: true
+      active: true
+      discovery_hash: 92966ff2d5cf50d64d01f7f6423e07698f05243d
+    - method: GET
+      path: /api/workflow/generate/audio/list
+      func_name: get_available_speakers
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      has_task_id: true
+      active: true
+      discovery_hash: cc2456048d5e997bff3ffed853498ad42d77c210
+    - method: POST
+      path: /api/workflow/generate/audio/upload
+      func_name: upload_custom_speaker_prompt
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: spk_id
+          in: form
+          type: str
+          required: true
+          description: 音色ID
+        - name: prompt_text
+          in: form
+          type: str
+          required: true
+          description: 音色提示文本
+        - name: prompt_audio
+          in: file
+          type: UploadFile
+          required: true
+          description: 音色提示音频（WAV格式，5-30秒）
+      has_task_id: true
+      active: true
+      discovery_hash: d928cce3b6f01167b32552ba68b82e0c626e1e23
+    - method: POST
+      path: /api/workflow/generate/clothes-swap/images
+      func_name: generate_clothes_swap
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 源图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 54144819c3f5e26052fcdec3c41932340fb48566
+    - method: POST
+      path: /api/workflow/generate/face-swap
+      func_name: generate_face_swap
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 脸部源
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 目标图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 27a2ec55182b1df739ad207f5e97722c2f90ec74
+    - method: POST
+      path: /api/workflow/generate/face-swap/video
+      func_name: generate_face_swap_video
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 图片，源图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 视频，目标视频
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 57fd7a366d0e2512edae8e7aba0272c9c4c5c06e
+    - method: POST
+      path: /api/workflow/generate/image2image
+      func_name: generate_image2image
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 源图片
+        - name: prompt
+          in: form
+          type: str
+          required: false
+          description: 描述图像内容的正向提示字符串
+        - name: height
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像高度
+        - name: width
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像宽度
+        - name: batch_size
+          in: form
+          type: int | None
+          required: false
+          default: "4"
+          description: 生成图像张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: cd1b393cb0c7233cc090803c6f2ed64263b688ee
+    - method: POST
+      path: /api/workflow/generate/kiss/video
+      func_name: generate_kiss_video
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: first_image
+          in: form
+          type: str
+          required: false
+          description: 第一张图片
+        - name: end_image
+          in: form
+          type: str
+          required: false
+          description: 第二张图片
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 4e6933244c48c0512ca9e7349b3de977f1de2e6b
+    - method: POST
+      path: /api/workflow/generate/novel
+      func_name: generate_novel
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: description
+          in: form
+          type: str
+          required: false
+          description: 剧情描述/故事情节
+        - name: character_setting
+          in: form
+          type: str
+          required: false
+          description: 人物设定
+        - name: location_scene
+          in: form
+          type: str
+          required: false
+          description: 地点场景
+        - name: details
+          in: form
+          type: str
+          required: false
+          description: 细节说明/其他要求
+        - name: count
+          in: form
+          type: int
+          required: false
+          default: "4000"
+          description: 小说字数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: notify_url
+          in: form
+          type: str | None
+          required: false
+          default: None
+          description: 通知回调URL
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 81a7c8031b1104eeeb965d22c3cf473496b1ac42
+    - method: POST
+      path: /api/workflow/generate/pose_transfer/video
+      func_name: generate_pose_transfer_video
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 图片，源图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 视频，目标视频
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: aecf70ccfe2af03da893e4eae7e0dec3a2fc8640
+    - method: POST
+      path: /api/workflow/generate/tattoos
+      func_name: generate_tattoos
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 目标图片
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 485230c229423745bc5f8ce786856ee795b297aa
+    - method: POST
+      path: /api/workflow/generate/text2image
+      func_name: generate_text2image
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: prompt
+          in: form
+          type: str
+          required: false
+          description: 描述图像内容的正向提示字符串
+        - name: height
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像高度
+        - name: width
+          in: form
+          type: int | None
+          required: false
+          default: None
+          description: 生成图像宽度
+        - name: batch_size
+          in: form
+          type: int | None
+          required: false
+          default: "4"
+          description: 生成图像张数
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID, 如果不传则自动生成一个UUID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: a9c0914ad822a8370d1cbdb067071a2879bdbaef
+    - method: POST
+      path: /api/workflow/generate/ttsv2
+      func_name: ttsv2_generate_audio
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: text
+          in: form
+          type: str
+          required: true
+          description: 内容
+        - name: spk_id
+          in: form
+          type: str
+          required: true
+          description: 声音类型
+        - name: use_emo
+          in: form
+          type: bool
+          required: false
+          description: 是否使用情感
+        - name: emo_type
+          in: form
+          type: str
+          required: false
+          description: 情感类型
+        - name: emo_text
+          in: form
+          type: str
+          required: false
+          description: 情感文本
+        - name: emo_alpha
+          in: form
+          type: float
+          required: false
+          description: 情感强度
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: 通知回调URL
+      has_task_id: true
+      active: true
+      discovery_hash: 92e819fd80f97f025bc6c65f4eee5a748d295ff6
+    - method: POST
+      path: /api/workflow/generate/ttsv2/speaker
+      func_name: ttsv2_speaker
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: spk_name
+          in: form
+          type: str
+          required: false
+          description: 音色名称
+        - name: audio
+          in: file
+          type: UploadFile
+          required: true
+          description: 音色提示音频（WAV格式，1-30秒）
+      has_task_id: true
+      active: true
+      discovery_hash: b17dd418b4b937c2d7066a237d4877b75648ec39
+    - method: GET
+      path: /api/workflow/generate/ttsv2/speakers
+      func_name: ttsv2_speakers
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      has_task_id: true
+      active: true
+      discovery_hash: 4f0c15351acbbb626b527b78e6acf6eaddeed2cb
+    - method: POST
+      path: /api/workflow/generate/undress
+      func_name: generate_undress_video
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: method
+          in: form
+          type: str
+          required: false
+          default: method_2
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: c60e68162433f6d50aa423e834d0a3deda415742
+    - method: POST
+      path: /api/workflow/generate/undress/anime
+      func_name: generate_undress_anime_image
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 8ca35dc7207364109a0e763e3b6560c26f89f39b
+    - method: POST
+      path: /api/workflow/generate/undress/anime/video
+      func_name: generate_undress_anime_video
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: qwen_incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: wan_incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+      has_task_id: true
+      active: true
+      discovery_hash: 0d20af7474dc5df7e1f8da1b83d5a8bdd2e6e9b6
+    - method: POST
+      path: /api/workflow/generate/undress/images
+      func_name: generate_undress_images
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: d1f07794aeaded858cf4fe0bce662a27a933fd27
+    - method: POST
+      path: /api/workflow/generate/undress/images/male
+      func_name: generate_undress_images_male
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: b3e6ca3f449255c623a6adc4d7fdc3416698be20
+    - method: POST
+      path: /api/workflow/generate/videos/scenes/double
+      func_name: generate_videos_double_scenes
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 女性图
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 男性图
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 82e551a89fd95b336d94c262038583d75849ea46
+    - method: POST
+      path: /api/workflow/generate/videos/scenes/prompt
+      func_name: generate_videos_scenes
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: output_format
+          in: form
+          type: str
+          required: false
+          default: video
+          description: '输出格式: video 或 webp'
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 072987e5be5218ed305c6dfd24e8c0df005ebc96
+    - method: POST
+      path: /api/workflow/generate/videos/scenes/qwen
+      func_name: generate_videos_qwen_scenes
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 原始图
+        - name: target_path
+          in: form
+          type: str
+          required: false
+          description: 参考图
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+      has_task_id: true
+      active: true
+      discovery_hash: 1990bcea560a3b17d468496405dd5e85e139109e
+    - method: POST
+      path: /api/workflow/generate/videos/scenes/webp/prompt
+      func_name: generate_videos_scenes_webp
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: source_path
+          in: form
+          type: str
+          required: false
+          description: 人物图片
+        - name: scene_name
+          in: form
+          type: str
+          required: false
+          description: 场景名称
+        - name: incoming_prompt
+          in: form
+          type: str
+          required: false
+        - name: bid
+          in: form
+          type: str
+          required: false
+          description: 业务编号
+        - name: app_id
+          in: form
+          type: str
+          required: false
+          description: app_id
+        - name: fee
+          in: form
+          type: str
+          required: false
+          default: "10"
+          description: 费用
+        - name: title
+          in: form
+          type: str
+          required: false
+          description: 标题
+        - name: hash_key
+          in: form
+          type: str
+          required: false
+        - name: notify_url
+          in: form
+          type: str
+          required: false
+          description: notify_url
+        - name: task_id
+          in: form
+          type: str
+          required: false
+          description: 任务ID
+        - name: is_encrypt
+          in: form
+          type: bool
+          required: false
+          default: "False"
+          description: 是否加密
+      has_task_id: true
+      active: true
+      discovery_hash: 3deb8c8e37c526c129593053dca8393d5692b3f1
+    - method: GET
+      path: /api/workflow/query/face-swap
+      func_name: workflow_query_task
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: bid
+          in: query
+          type: str
+          required: false
+          description: 业务编号
+      has_task_id: false
+      active: true
+      discovery_hash: 88dfd0dbaef9291a348a69f183b83444a7194696
+    - method: POST
+      path: /api/workflow/random_submit
+      func_name: random_submit
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: num
+          in: query
+          type: int
+          required: false
+          description: 要提交的任务数量(1-100)
+      has_task_id: false
+      active: true
+      discovery_hash: b77bde8f4a2ed09f3302e5291bad340d0d97ae49
+    - method: GET
+      path: /api/workflow/task
+      func_name: get_mqtask_by_task_id
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: task_id
+          in: query
+          type: str
+          required: true
+          description: 任务 ID
+      has_task_id: true
+      active: true
+      discovery_hash: a7e6e47d6f85c7f5dfe914970bd8d3d4b8f46373
+    - method: POST
+      path: /api/workflow/task/details
+      func_name: batch_get_task
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      has_task_id: false
+      active: true
+      discovery_hash: df4a7f5a466762a3a662fc83100a52c290598f55
+    - method: GET
+      path: /api/workflow/task/list
+      func_name: get_task_list
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      params:
+        - name: task_list_str
+          in: query
+          type: str
+          required: true
+          description: 逗号分隔的任务ID列表
+      has_task_id: false
+      active: true
+      discovery_hash: 4d8b0f99842740c1c9b8330ec83d241769d3eb21
+    - method: GET
+      path: /api/workflow/task/queue
+      func_name: get_task_queue
+      source_file: /workspace/target-project/src/routers/workflow.py
+      tags:
+        - workflow
+      has_task_id: false
+      active: true
+      discovery_hash: 19be97cbed85cd3a638f4c344e945855a072d991
+    - method: GET
+      path: /favicon.ico
+      func_name: favicon
+      source_file: /workspace/target-project/src/routers/index.py
+      tags:
+        - index
+      has_task_id: false
+      active: true
+      discovery_hash: bff6bd9c0dc33d35509cc9acee33021fe451996a
+    - method: GET
+      path: /robots.txt
+      func_name: robots
+      source_file: /workspace/target-project/src/routers/index.py
+      tags:
+        - index
+      has_task_id: false
+      active: true
+      discovery_hash: 43728151bc6bbdfd790a41f1e178c9775b488406

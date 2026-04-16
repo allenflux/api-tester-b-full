@@ -73,82 +73,177 @@
     </div>
   </div>
 
-<script>
-async function getJSON(url, options) {
-  const r = await fetch(url, options);
-  return r.json();
-}
+  <script>
+      async function getJSON(url, options) {
+          const r = await fetch(url, options);
+          const text = await r.text();
 
-async function triggerRun(mode) {
-  const status = document.getElementById('runStatus');
-  status.textContent = `Running ${mode}...`;
-  status.className = 'statusbox muted';
-  try {
-    const data = await getJSON(`/api/run?mode=${encodeURIComponent(mode)}`, { method: 'POST' });
-    document.getElementById('runResponse').textContent = JSON.stringify(data, null, 2);
-    status.textContent = `${mode} finished.`;
-    status.className = 'statusbox ok';
-    await loadRuns();
-    await loadCalls();
-  } catch (e) {
-    status.textContent = `${mode} failed: ${e}`;
-    status.className = 'statusbox bad';
-  }
-}
+          let data;
+          try {
+              data = text ? JSON.parse(text) : null;
+          } catch (e) {
+              throw new Error(`invalid json response: ${text}`);
+          }
 
-async function loadRuns() {
-  const data = await getJSON('/api/runs?limit=20');
-  const table = document.getElementById('runsTable');
-  table.innerHTML = `<tr><th>ID</th><th>Mode</th><th>Status</th><th>Calls</th><th>Success</th><th>Failed</th><th>Avg ms</th><th>Started</th></tr>` +
-    data.map(r => `<tr>
-      <td>${r.id}</td><td>${r.mode}</td><td>${r.status}</td><td>${r.total_calls}</td>
-      <td class="ok">${r.success_count}</td><td class="bad">${r.failed_count}</td><td>${r.avg_cost_ms}</td><td>${r.started_at}</td></tr>`).join('');
-  if (data.length) {
-    const latest = data[0];
-    document.getElementById('stats').innerHTML = `
-      <div class="card"><div class="muted">Latest Run</div><div><strong>#${latest.id}</strong> ${latest.mode}</div></div>
-      <div class="card"><div class="muted">Calls</div><div><strong>${latest.total_calls}</strong></div></div>
-      <div class="card"><div class="muted">Success</div><div class="ok"><strong>${latest.success_count}</strong></div></div>
-      <div class="card"><div class="muted">Failed</div><div class="bad"><strong>${latest.failed_count}</strong></div></div>
-      <div class="card"><div class="muted">Avg Cost</div><div><strong>${latest.avg_cost_ms} ms</strong></div></div>`;
-      document.getElementById('runId').value = latest.id;
-  }
-}
+          if (!r.ok) {
+              const msg = data && typeof data === 'object'
+                  ? (data.error || data.message || JSON.stringify(data))
+                  : (`HTTP ${r.status}`);
+              throw new Error(msg);
+          }
 
-async function loadCalls() {
-  const runId = document.getElementById('runId').value || '';
-  const q = encodeURIComponent(document.getElementById('q').value || '');
-  const data = await getJSON(`/api/calls?run_id=${runId}&q=${q}&limit=200`);
-  const table = document.getElementById('callsTable');
-  table.innerHTML = `<tr><th>ID</th><th>Path</th><th>Task</th><th>Task Status</th><th>Code</th><th>Cost ms</th><th>Error</th><th>Payload</th><th>Response</th></tr>` +
-    data.map(r => `<tr>
-      <td>${r.id}</td><td><code>${escapeHtml(r.endpoint_path)}</code></td><td><code>${escapeHtml(r.task_id || '')}</code></td>
-      <td>${r.task_status}</td><td>${r.response_code}</td><td>${r.cost_ms}</td>
-      <td class="${r.success ? 'ok':'bad'}">${escapeHtml(r.error_message || (r.success ? 'ok' : 'failed'))}</td>
-      <td><details><summary>payload</summary><pre>${escapeHtml(JSON.stringify(r.request_payload, null, 2))}</pre></details></td>
-      <td><details><summary>response</summary><pre>${escapeHtml(r.response_body || '')}</pre></details></td></tr>`).join('');
-}
+          return data;
+      }
 
-async function loadEndpoints() {
-  const data = await getJSON('/api/endpoints');
-  const table = document.getElementById('epsTable');
-  table.innerHTML = `<tr><th>Method</th><th>Path</th><th>Func</th><th>Params</th><th>File</th></tr>` +
-    data.map(e => `<tr>
-      <td>${e.method}</td><td><code>${escapeHtml(e.path)}</code></td><td>${escapeHtml(e.func_name || '')}</td>
-      <td>${(e.params || []).map(p => `<div><code>${escapeHtml(p.name)}</code> <span class="muted">${escapeHtml(p.in || '')}/${escapeHtml(p.type || '')}</span></div>`).join('')}</td>
-      <td><code>${escapeHtml(e.source_file || '')}</code></td></tr>`).join('');
-}
+      function asList(data, candidates = ['items', 'runs', 'records', 'data', 'endpoints', 'calls']) {
+          if (Array.isArray(data)) return data;
+          if (!data || typeof data !== 'object') return [];
+          for (const key of candidates) {
+              if (Array.isArray(data[key])) return data[key];
+          }
+          return [];
+      }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;');
-}
+      function renderTable(tableId, headerHtml, rowsHtml) {
+          const table = document.getElementById(tableId);
+          table.innerHTML = headerHtml + rowsHtml;
+      }
 
-loadRuns();
-loadCalls();
-loadEndpoints();
-</script>
+      async function triggerRun(mode) {
+          const status = document.getElementById('runStatus');
+          const responseEl = document.getElementById('runResponse');
+
+          status.textContent = `Running ${mode}...`;
+          status.className = 'statusbox muted';
+          responseEl.textContent = '';
+
+          try {
+              const data = await getJSON(`/api/run?mode=${encodeURIComponent(mode)}`, { method: 'POST' });
+              responseEl.textContent = JSON.stringify(data, null, 2);
+
+              const msg = data && typeof data === 'object'
+                  ? (data.message || data.status || `${mode} finished.`)
+                  : `${mode} finished.`;
+
+              status.textContent = msg;
+              status.className = 'statusbox ok';
+
+              await loadRuns();
+              await loadCalls();
+          } catch (e) {
+              responseEl.textContent = String(e);
+              status.textContent = `${mode} failed: ${e.message || e}`;
+              status.className = 'statusbox bad';
+          }
+      }
+
+      async function loadRuns() {
+          try {
+              const data = await getJSON('/api/runs?limit=20');
+              const list = asList(data, ['runs', 'items', 'data']);
+
+              renderTable(
+                  'runsTable',
+                  `<tr><th>ID</th><th>Mode</th><th>Status</th><th>Calls</th><th>Success</th><th>Failed</th><th>Avg ms</th><th>Started</th></tr>`,
+                  list.map(r => `<tr>
+        <td>${escapeHtml(r.id ?? '')}</td>
+        <td>${escapeHtml(r.mode ?? '')}</td>
+        <td>${escapeHtml(r.status ?? '')}</td>
+        <td>${escapeHtml(r.total_calls ?? '')}</td>
+        <td class="ok">${escapeHtml(r.success_count ?? '')}</td>
+        <td class="bad">${escapeHtml(r.failed_count ?? '')}</td>
+        <td>${escapeHtml(r.avg_cost_ms ?? '')}</td>
+        <td>${escapeHtml(r.started_at ?? '')}</td>
+      </tr>`).join('')
+              );
+
+              if (list.length) {
+                  const latest = list[0];
+                  document.getElementById('stats').innerHTML = `
+        <div class="card"><div class="muted">Latest Run</div><div><strong>#${escapeHtml(latest.id ?? '')}</strong> ${escapeHtml(latest.mode ?? '')}</div></div>
+        <div class="card"><div class="muted">Calls</div><div><strong>${escapeHtml(latest.total_calls ?? '')}</strong></div></div>
+        <div class="card"><div class="muted">Success</div><div class="ok"><strong>${escapeHtml(latest.success_count ?? '')}</strong></div></div>
+        <div class="card"><div class="muted">Failed</div><div class="bad"><strong>${escapeHtml(latest.failed_count ?? '')}</strong></div></div>
+        <div class="card"><div class="muted">Avg Cost</div><div><strong>${escapeHtml(latest.avg_cost_ms ?? '')} ms</strong></div></div>`;
+                  document.getElementById('runId').value = latest.id ?? '';
+              } else {
+                  document.getElementById('stats').innerHTML = '';
+              }
+          } catch (e) {
+              renderTable(
+                  'runsTable',
+                  `<tr><th>Runs</th></tr>`,
+                  `<tr><td class="bad">${escapeHtml(e.message || String(e))}</td></tr>`
+              );
+          }
+      }
+
+      async function loadCalls() {
+          try {
+              const runId = document.getElementById('runId').value || '';
+              const q = encodeURIComponent(document.getElementById('q').value || '');
+              const data = await getJSON(`/api/calls?run_id=${runId}&q=${q}&limit=200`);
+              const list = asList(data, ['calls', 'records', 'items', 'data']);
+
+              renderTable(
+                  'callsTable',
+                  `<tr><th>ID</th><th>Path</th><th>Task</th><th>Task Status</th><th>Code</th><th>Cost ms</th><th>Error</th><th>Payload</th><th>Response</th></tr>`,
+                  list.map(r => `<tr>
+        <td>${escapeHtml(r.id ?? '')}</td>
+        <td><code>${escapeHtml(r.endpoint_path ?? '')}</code></td>
+        <td><code>${escapeHtml(r.task_id || '')}</code></td>
+        <td>${escapeHtml(r.task_status ?? '')}</td>
+        <td>${escapeHtml(r.response_code ?? '')}</td>
+        <td>${escapeHtml(r.cost_ms ?? '')}</td>
+        <td class="${r.success ? 'ok' : 'bad'}">${escapeHtml(r.error_message || (r.success ? 'ok' : 'failed'))}</td>
+        <td><details><summary>payload</summary><pre>${escapeHtml(JSON.stringify(r.request_payload ?? {}, null, 2))}</pre></details></td>
+        <td><details><summary>response</summary><pre>${escapeHtml(r.response_body || '')}</pre></details></td>
+      </tr>`).join('')
+              );
+          } catch (e) {
+              renderTable(
+                  'callsTable',
+                  `<tr><th>Calls</th></tr>`,
+                  `<tr><td class="bad">${escapeHtml(e.message || String(e))}</td></tr>`
+              );
+          }
+      }
+
+      async function loadEndpoints() {
+          try {
+              const data = await getJSON('/api/endpoints');
+              const list = asList(data, ['endpoints', 'items', 'data']);
+
+              renderTable(
+                  'epsTable',
+                  `<tr><th>Method</th><th>Path</th><th>Func</th><th>Params</th><th>File</th></tr>`,
+                  list.map(e => `<tr>
+        <td>${escapeHtml(e.method ?? '')}</td>
+        <td><code>${escapeHtml(e.path ?? '')}</code></td>
+        <td>${escapeHtml(e.func_name || '')}</td>
+        <td>${(Array.isArray(e.params) ? e.params : []).map(p => `<div><code>${escapeHtml(p.name || '')}</code> <span class="muted">${escapeHtml(p.in || '')}/${escapeHtml(p.type || '')}</span></div>`).join('')}</td>
+        <td><code>${escapeHtml(e.source_file || '')}</code></td>
+      </tr>`).join('')
+              );
+          } catch (e) {
+              renderTable(
+                  'epsTable',
+                  `<tr><th>Endpoints</th></tr>`,
+                  `<tr><td class="bad">${escapeHtml(e.message || String(e))}</td></tr>`
+              );
+          }
+      }
+
+      function escapeHtml(value) {
+          return String(value ?? '')
+              .replaceAll('&', '&amp;')
+              .replaceAll('<', '&lt;')
+              .replaceAll('>', '&gt;');
+      }
+
+      loadRuns();
+      loadCalls();
+      loadEndpoints();
+  </script>
 </body>
 </html>
