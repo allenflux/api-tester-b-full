@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>API Tester Dashboard</title>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; margin: 24px; color: #111827; }
+    h1 { margin-bottom: 8px; }
+    .row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+    .card { border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px; min-width: 240px; box-shadow: 0 2px 8px rgba(0,0,0,.03); }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border-bottom: 1px solid #e5e7eb; text-align: left; padding: 8px; vertical-align: top; font-size: 14px; }
+    input { padding: 8px; width: 280px; border-radius: 10px; border: 1px solid #d1d5db; }
+    button { padding: 8px 14px; border-radius: 10px; border: 0; background: #111827; color: white; cursor: pointer; }
+    code { white-space: pre-wrap; word-break: break-all; }
+    .muted { color: #6b7280; font-size: 13px; }
+    .ok { color: #047857; }
+    .bad { color: #b91c1c; }
+  </style>
+</head>
+<body>
+  <h1>API Tester Dashboard</h1>
+  <div class="muted">Built-in UI for runs, endpoint inventory, and call history. Grafana handles live charts.</div>
+
+  <div class="row" id="stats"></div>
+
+  <div class="row">
+    <div class="card" style="flex:1 1 320px;">
+      <strong>Runs</strong>
+      <div class="muted">Latest scheduled or manual executions</div>
+      <table id="runsTable"></table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1 1 320px;">
+      <strong>Calls</strong>
+      <div style="margin-top:8px;">
+        <input id="runId" placeholder="run_id"/>
+        <input id="q" placeholder="task_id / path / error"/>
+        <button onclick="loadCalls()">Search</button>
+      </div>
+      <table id="callsTable"></table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1 1 320px;">
+      <strong>Endpoints</strong>
+      <div class="muted">Scanned from Python router files</div>
+      <table id="epsTable"></table>
+    </div>
+  </div>
+
+<script>
+async function getJSON(url) { const r = await fetch(url); return r.json(); }
+
+async function loadRuns() {
+  const data = await getJSON('/api/runs?limit=20');
+  const table = document.getElementById('runsTable');
+  table.innerHTML = `<tr><th>ID</th><th>Mode</th><th>Status</th><th>Calls</th><th>Success</th><th>Failed</th><th>Avg ms</th><th>Started</th></tr>` +
+    data.map(r => `<tr>
+      <td>${r.id}</td><td>${r.mode}</td><td>${r.status}</td><td>${r.total_calls}</td>
+      <td class="ok">${r.success_count}</td><td class="bad">${r.failed_count}</td><td>${r.avg_cost_ms}</td><td>${r.started_at}</td></tr>`).join('');
+  if (data.length) {
+    const latest = data[0];
+    document.getElementById('stats').innerHTML = `
+      <div class="card"><div class="muted">Latest Run</div><div><strong>#${latest.id}</strong> ${latest.mode}</div></div>
+      <div class="card"><div class="muted">Calls</div><div><strong>${latest.total_calls}</strong></div></div>
+      <div class="card"><div class="muted">Success</div><div class="ok"><strong>${latest.success_count}</strong></div></div>
+      <div class="card"><div class="muted">Failed</div><div class="bad"><strong>${latest.failed_count}</strong></div></div>
+      <div class="card"><div class="muted">Avg Cost</div><div><strong>${latest.avg_cost_ms} ms</strong></div></div>`;
+  }
+}
+
+async function loadCalls() {
+  const runId = document.getElementById('runId').value || '';
+  const q = encodeURIComponent(document.getElementById('q').value || '');
+  const data = await getJSON(`/api/calls?run_id=${runId}&q=${q}&limit=200`);
+  const table = document.getElementById('callsTable');
+  table.innerHTML = `<tr><th>ID</th><th>Path</th><th>Task</th><th>Status</th><th>Code</th><th>Cost ms</th><th>Error</th><th>Payload</th></tr>` +
+    data.map(r => `<tr>
+      <td>${r.id}</td><td><code>${r.endpoint_path}</code></td><td><code>${r.task_id || ''}</code></td>
+      <td>${r.task_status}</td><td>${r.response_code}</td><td>${r.cost_ms}</td>
+      <td class="${r.success ? 'ok':'bad'}">${r.error_message || (r.success ? 'ok' : 'failed')}</td>
+      <td><code>${JSON.stringify(r.request_payload)}</code></td></tr>`).join('');
+}
+
+async function loadEndpoints() {
+  const data = await getJSON('/api/endpoints');
+  const table = document.getElementById('epsTable');
+  table.innerHTML = `<tr><th>Method</th><th>Path</th><th>Func</th><th>Params</th><th>File</th></tr>` +
+    data.map(e => `<tr>
+      <td>${e.method}</td><td><code>${e.path}</code></td><td>${e.func_name}</td>
+      <td>${(e.params || []).map(p => `<div><code>${p.name}</code> <span class="muted">${p.in}/${p.type}</span></div>`).join('')}</td>
+      <td><code>${e.source_file}</code></td></tr>`).join('');
+}
+
+loadRuns();
+loadCalls();
+loadEndpoints();
+</script>
+</body>
+</html>
