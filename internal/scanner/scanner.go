@@ -7,7 +7,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
+	"time"
+
+	"gopkg.in/yaml.v3"
 
 	"api-tester/internal/config"
 	"api-tester/internal/model"
@@ -28,9 +32,7 @@ type Scanner struct {
 	cfg *config.Config
 }
 
-func New(cfg *config.Config) *Scanner {
-	return &Scanner{cfg: cfg}
-}
+func New(cfg *config.Config) *Scanner { return &Scanner{cfg: cfg} }
 
 func (s *Scanner) Scan() ([]model.Endpoint, error) {
 	var out []model.Endpoint
@@ -62,7 +64,55 @@ func (s *Scanner) Scan() ([]model.Endpoint, error) {
 			return nil, err
 		}
 	}
+	sort.Slice(out, func(i, j int) bool {
+		if out[i].Path == out[j].Path {
+			return out[i].Method < out[j].Method
+		}
+		return out[i].Path < out[j].Path
+	})
 	return out, nil
+}
+
+func (s *Scanner) ExportYAML(path string) (*model.EndpointCatalog, error) {
+	endpoints, err := s.Scan()
+	if err != nil {
+		return nil, err
+	}
+	catalog := &model.EndpointCatalog{
+		GeneratedAt: time.Now().UTC(),
+		ProjectRoot: s.cfg.Source.ProjectRoot,
+		RouterDirs:  append([]string(nil), s.cfg.Source.RouterDirs...),
+		Endpoints:   endpoints,
+	}
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return nil, err
+	}
+	raw, err := yaml.Marshal(catalog)
+	if err != nil {
+		return nil, fmt.Errorf("marshal endpoint yaml: %w", err)
+	}
+	if err := os.WriteFile(path, raw, 0o644); err != nil {
+		return nil, fmt.Errorf("write endpoint yaml: %w", err)
+	}
+	return catalog, nil
+}
+
+func LoadYAML(path string) (*model.EndpointCatalog, error) {
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("read endpoint yaml: %w", err)
+	}
+	var catalog model.EndpointCatalog
+	if err := yaml.Unmarshal(raw, &catalog); err != nil {
+		return nil, fmt.Errorf("unmarshal endpoint yaml: %w", err)
+	}
+	sort.Slice(catalog.Endpoints, func(i, j int) bool {
+		if catalog.Endpoints[i].Path == catalog.Endpoints[j].Path {
+			return catalog.Endpoints[i].Method < catalog.Endpoints[j].Method
+		}
+		return catalog.Endpoints[i].Path < catalog.Endpoints[j].Path
+	})
+	return &catalog, nil
 }
 
 func (s *Scanner) scanFile(path string) ([]model.Endpoint, error) {

@@ -2,7 +2,6 @@ package generator
 
 import (
 	"fmt"
-	"net/url"
 	"strconv"
 	"strings"
 
@@ -14,24 +13,24 @@ type PayloadBuilder struct {
 	cfg *config.Config
 }
 
-func NewPayloadBuilder(cfg *config.Config) *PayloadBuilder {
-	return &PayloadBuilder{cfg: cfg}
-}
+func NewPayloadBuilder(cfg *config.Config) *PayloadBuilder { return &PayloadBuilder{cfg: cfg} }
 
 func (b *PayloadBuilder) Build(ep model.Endpoint) []map[string]any {
-	// Prefer per-path overrides.
 	if ov, ok := b.cfg.Overrides.ByPath[ep.Path]; ok && len(ov) > 0 {
 		return expandMap(ov)
 	}
 
 	payload := map[string][]any{}
+	for k, v := range b.cfg.Overrides.Defaults {
+		payload[k] = []any{v}
+	}
 	for _, p := range ep.Params {
 		if len(p.Enum) > 0 {
-			values := make([]any, 0, len(p.Enum))
+			vals := make([]any, 0, len(p.Enum))
 			for _, v := range p.Enum {
-				values = append(values, v)
+				vals = append(vals, v)
 			}
-			payload[p.Name] = values
+			payload[p.Name] = vals
 			continue
 		}
 		if vals, ok := b.cfg.Overrides.ByParameterName[p.Name]; ok && len(vals) > 0 {
@@ -51,21 +50,25 @@ func (b *PayloadBuilder) guessValue(ep model.Endpoint, p model.Parameter) any {
 	name := strings.ToLower(p.Name)
 	ptype := strings.ToLower(p.Type)
 	def := p.Default
-	if def != "" && def != "None" && def != "null" {
+	if def != "" && !strings.EqualFold(def, "none") && !strings.EqualFold(def, "null") {
 		return normalizeType(def, ptype)
 	}
 	switch {
+	case name == "first_image":
+		return "https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg"
+	case name == "end_image":
+		return "https://pic.rmb.bdstatic.com/bjh/250622/beautify/20019de7ad4a6bae7da522da5c3f1555.jpeg?for=bg"
 	case name == "source_path":
-		return "https://example.com/source.jpg"
+		return "https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg"
 	case name == "target_path":
 		if strings.Contains(ep.Path, "video") {
-			return "https://example.com/target.mp4"
+			return "https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg"
 		}
-		return "https://example.com/target.jpg"
-	case strings.Contains(name, "img") && strings.Contains(name, "url"):
-		return "https://example.com/input.jpg"
+		return "https://pic.rmb.bdstatic.com/bjh/250622/beautify/20019de7ad4a6bae7da522da5c3f1555.jpeg?for=bg"
+	case strings.Contains(name, "image") || strings.Contains(name, "img"):
+		return "https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg"
 	case strings.Contains(name, "video") && strings.Contains(name, "url"):
-		return "https://example.com/input.mp4"
+		return "https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg"
 	case name == "prompt" || strings.Contains(name, "positive_prompt"):
 		return "a portrait with natural lighting"
 	case strings.Contains(name, "negative_prompt"):
@@ -78,13 +81,13 @@ func (b *PayloadBuilder) guessValue(ep model.Endpoint, p model.Parameter) any {
 		}
 		return "png"
 	case name == "bid":
-		return "smoke-test-bid"
+		return "898b0d60-da10-44e0-a7eb-46b3455878e5"
 	case name == "fee":
-		return "1"
+		return "10"
 	case name == "title":
-		return "api-tester"
+		return "12312323123"
 	case name == "notify_url":
-		return "https://example.com/webhook"
+		return "https://quiet-whale-88.webhook.cool"
 	case name == "hash_key":
 		return ""
 	case name == "task_id":
@@ -166,9 +169,6 @@ func expandMap(in map[string][]any) []map[string]any {
 func sanitize(v any) any {
 	switch t := v.(type) {
 	case string:
-		if _, err := url.ParseRequestURI(t); err == nil && strings.HasPrefix(t, "https://example.com/") {
-			return t
-		}
 		return strings.TrimSpace(t)
 	default:
 		return t

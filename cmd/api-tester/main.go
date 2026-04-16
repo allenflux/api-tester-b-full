@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
+	"os"
 	"os/signal"
 	"syscall"
 
@@ -12,10 +14,8 @@ import (
 
 func main() {
 	configPath := flag.String("config", "configs/config.yaml", "path to config file")
+	mode := flag.String("mode", "serve", "serve or export-endpoints")
 	flag.Parse()
-
-	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	defer stop()
 
 	a, err := app.New(*configPath)
 	if err != nil {
@@ -23,7 +23,20 @@ func main() {
 	}
 	defer a.Close()
 
-	if err := a.Run(ctx); err != nil {
-		log.Fatalf("run app: %v", err)
+	switch *mode {
+	case "export-endpoints":
+		if err := a.ExportEndpointYAML(); err != nil {
+			log.Fatalf("export endpoint yaml: %v", err)
+		}
+		fmt.Fprintln(os.Stdout, "endpoint yaml exported successfully")
+		return
+	case "serve":
+		ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+		defer stop()
+		if err := a.Run(ctx); err != nil {
+			log.Fatalf("run app: %v", err)
+		}
+	default:
+		log.Fatalf("unknown mode: %s", *mode)
 	}
 }

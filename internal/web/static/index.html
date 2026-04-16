@@ -7,22 +7,43 @@
     body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; margin: 24px; color: #111827; }
     h1 { margin-bottom: 8px; }
     .row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
-    .card { border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px; min-width: 240px; box-shadow: 0 2px 8px rgba(0,0,0,.03); }
-    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    .card { border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px; min-width: 240px; box-shadow: 0 2px 8px rgba(0,0,0,.03); background: white; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; table-layout: fixed; }
     th, td { border-bottom: 1px solid #e5e7eb; text-align: left; padding: 8px; vertical-align: top; font-size: 14px; }
     input { padding: 8px; width: 280px; border-radius: 10px; border: 1px solid #d1d5db; }
     button { padding: 8px 14px; border-radius: 10px; border: 0; background: #111827; color: white; cursor: pointer; }
-    code { white-space: pre-wrap; word-break: break-all; }
+    button.secondary { background: #374151; }
+    code, pre { white-space: pre-wrap; word-break: break-all; margin: 0; }
     .muted { color: #6b7280; font-size: 13px; }
     .ok { color: #047857; }
     .bad { color: #b91c1c; }
+    details { max-width: 100%; }
+    .toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+    .statusbox { min-height: 44px; }
   </style>
 </head>
 <body>
   <h1>API Tester Dashboard</h1>
-  <div class="muted">Built-in UI for runs, endpoint inventory, and call history. Grafana handles live charts.</div>
+  <div class="muted">Two-step flow: export endpoint YAML first, then run the service from YAML. All non-GET calls are sent as application/x-www-form-urlencoded.</div>
 
   <div class="row" id="stats"></div>
+
+  <div class="row">
+    <div class="card" style="flex:1 1 320px;">
+      <strong>Manual Run</strong>
+      <div class="muted">Trigger a smoke or stress round directly from the page.</div>
+      <div class="toolbar">
+        <button onclick="triggerRun('smoke')">Run Smoke</button>
+        <button class="secondary" onclick="triggerRun('stress')">Run Stress</button>
+        <span class="muted">Endpoint YAML must already exist on disk.</span>
+      </div>
+      <div id="runStatus" class="statusbox muted" style="margin-top:10px;"></div>
+      <details style="margin-top:10px;">
+        <summary>Latest trigger response</summary>
+        <pre id="runResponse"></pre>
+      </details>
+    </div>
+  </div>
 
   <div class="row">
     <div class="card" style="flex:1 1 320px;">
@@ -47,13 +68,33 @@
   <div class="row">
     <div class="card" style="flex:1 1 320px;">
       <strong>Endpoints</strong>
-      <div class="muted">Scanned from Python router files</div>
+      <div class="muted">Loaded from endpoint YAML or scanner export</div>
       <table id="epsTable"></table>
     </div>
   </div>
 
 <script>
-async function getJSON(url) { const r = await fetch(url); return r.json(); }
+async function getJSON(url, options) {
+  const r = await fetch(url, options);
+  return r.json();
+}
+
+async function triggerRun(mode) {
+  const status = document.getElementById('runStatus');
+  status.textContent = `Running ${mode}...`;
+  status.className = 'statusbox muted';
+  try {
+    const data = await getJSON(`/api/run?mode=${encodeURIComponent(mode)}`, { method: 'POST' });
+    document.getElementById('runResponse').textContent = JSON.stringify(data, null, 2);
+    status.textContent = `${mode} finished.`;
+    status.className = 'statusbox ok';
+    await loadRuns();
+    await loadCalls();
+  } catch (e) {
+    status.textContent = `${mode} failed: ${e}`;
+    status.className = 'statusbox bad';
+  }
+}
 
 async function loadRuns() {
   const data = await getJSON('/api/runs?limit=20');
@@ -70,6 +111,7 @@ async function loadRuns() {
       <div class="card"><div class="muted">Success</div><div class="ok"><strong>${latest.success_count}</strong></div></div>
       <div class="card"><div class="muted">Failed</div><div class="bad"><strong>${latest.failed_count}</strong></div></div>
       <div class="card"><div class="muted">Avg Cost</div><div><strong>${latest.avg_cost_ms} ms</strong></div></div>`;
+      document.getElementById('runId').value = latest.id;
   }
 }
 
@@ -78,12 +120,13 @@ async function loadCalls() {
   const q = encodeURIComponent(document.getElementById('q').value || '');
   const data = await getJSON(`/api/calls?run_id=${runId}&q=${q}&limit=200`);
   const table = document.getElementById('callsTable');
-  table.innerHTML = `<tr><th>ID</th><th>Path</th><th>Task</th><th>Status</th><th>Code</th><th>Cost ms</th><th>Error</th><th>Payload</th></tr>` +
+  table.innerHTML = `<tr><th>ID</th><th>Path</th><th>Task</th><th>Task Status</th><th>Code</th><th>Cost ms</th><th>Error</th><th>Payload</th><th>Response</th></tr>` +
     data.map(r => `<tr>
-      <td>${r.id}</td><td><code>${r.endpoint_path}</code></td><td><code>${r.task_id || ''}</code></td>
+      <td>${r.id}</td><td><code>${escapeHtml(r.endpoint_path)}</code></td><td><code>${escapeHtml(r.task_id || '')}</code></td>
       <td>${r.task_status}</td><td>${r.response_code}</td><td>${r.cost_ms}</td>
-      <td class="${r.success ? 'ok':'bad'}">${r.error_message || (r.success ? 'ok' : 'failed')}</td>
-      <td><code>${JSON.stringify(r.request_payload)}</code></td></tr>`).join('');
+      <td class="${r.success ? 'ok':'bad'}">${escapeHtml(r.error_message || (r.success ? 'ok' : 'failed'))}</td>
+      <td><details><summary>payload</summary><pre>${escapeHtml(JSON.stringify(r.request_payload, null, 2))}</pre></details></td>
+      <td><details><summary>response</summary><pre>${escapeHtml(r.response_body || '')}</pre></details></td></tr>`).join('');
 }
 
 async function loadEndpoints() {
@@ -91,9 +134,16 @@ async function loadEndpoints() {
   const table = document.getElementById('epsTable');
   table.innerHTML = `<tr><th>Method</th><th>Path</th><th>Func</th><th>Params</th><th>File</th></tr>` +
     data.map(e => `<tr>
-      <td>${e.method}</td><td><code>${e.path}</code></td><td>${e.func_name}</td>
-      <td>${(e.params || []).map(p => `<div><code>${p.name}</code> <span class="muted">${p.in}/${p.type}</span></div>`).join('')}</td>
-      <td><code>${e.source_file}</code></td></tr>`).join('');
+      <td>${e.method}</td><td><code>${escapeHtml(e.path)}</code></td><td>${escapeHtml(e.func_name || '')}</td>
+      <td>${(e.params || []).map(p => `<div><code>${escapeHtml(p.name)}</code> <span class="muted">${escapeHtml(p.in || '')}/${escapeHtml(p.type || '')}</span></div>`).join('')}</td>
+      <td><code>${escapeHtml(e.source_file || '')}</code></td></tr>`).join('');
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
 }
 
 loadRuns();

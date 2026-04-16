@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"sync"
 
 	"github.com/robfig/cron/v3"
@@ -37,41 +36,29 @@ func New(configPath string) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
-	if cfg == nil {
-		return nil, fmt.Errorf("loaded config is nil")
-	}
-	if strings.TrimSpace(cfg.API.BaseURL) == "" {
-		return nil, fmt.Errorf("api.base_url is empty")
-	}
-
 	if err := os.MkdirAll(cfg.Runner.ReportDir, 0o755); err != nil {
 		return nil, err
 	}
-
 	store, err := storage.New(cfg.Database.Path)
 	if err != nil {
 		return nil, err
 	}
-
 	met := metrics.New()
 	cl := client.New(cfg)
-	if cl == nil {
-		return nil, fmt.Errorf("client.New returned nil")
-	}
-
 	builder := generator.NewPayloadBuilder(cfg)
 	r := runner.New(cfg, store, cl, builder, met)
-	w := web.New(store)
 
-	return &App{
+	a := &App{
 		cfg:     cfg,
 		store:   store,
 		scanner: scanner.New(cfg),
 		runner:  r,
-		web:     w,
 		metrics: met,
-	}, nil
+	}
+	a.web = web.New(store, a.TriggerRun)
+	return a, nil
 }
+
 func (a *App) Close() error {
 	if a.cron != nil {
 		a.cron.Stop()
@@ -84,7 +71,7 @@ func (a *App) Run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("discovered %d endpoints", len(endpoints))
+	log.Printf("loaded %d endpoints", len(endpoints))
 
 	go func() {
 		if err := web.RunHTTP(ctx, a.cfg.Web.ListenAddr, a.web.Handler()); err != nil {
@@ -95,7 +82,7 @@ func (a *App) Run(ctx context.Context) error {
 	if a.cfg.Schedule.Enabled {
 		c := cron.New()
 		_, err := c.AddFunc(a.cfg.Schedule.Cron, func() {
-			if _, err := a.execute(context.Background(), endpoints); err != nil {
+			if _, err := a.TriggerRun(context.Background(), a.cfg.Runner.Mode); err != nil {
 				log.Printf("scheduled run failed: %v", err)
 			}
 		})
@@ -106,7 +93,7 @@ func (a *App) Run(ctx context.Context) error {
 		a.cron.Start()
 	}
 	if a.cfg.Schedule.RunAtStart || !a.cfg.Schedule.Enabled {
-		if _, err := a.execute(ctx, endpoints); err != nil {
+		if _, err := a.execute(ctx, endpoints, normalizeMode(a.cfg.Runner.Mode)); err != nil {
 			return err
 		}
 	}
@@ -114,10 +101,49 @@ func (a *App) Run(ctx context.Context) error {
 	return nil
 }
 
-func (a *App) refreshEndpoints(ctx context.Context) ([]model.Endpoint, error) {
-	endpoints, err := a.scanner.Scan()
+func (a *App) ExportEndpointYAML() error {
+	catalog, err := a.scanner.ExportYAML(a.cfg.Source.EndpointYAMLPath)
+	if err != nil {
+		return err
+	}
+	log.Printf("exported %d endpoints to %s", len(catalog.Endpoints), a.cfg.Source.EndpointYAMLPath)
+	return nil
+}
+
+func (a *App) TriggerRun(ctx context.Context, mode string) (*model.RunReport, error) {
+	endpoints, err := a.refreshEndpoints(ctx)
 	if err != nil {
 		return nil, err
+	}
+	return a.execute(ctx, endpoints, normalizeMode(mode))
+}
+
+func normalizeMode(mode string) string {
+	if mode == "stress" {
+		return "stress"
+	}
+	return "smoke"
+}
+
+func (a *App) refreshEndpoints(ctx context.Context) ([]model.Endpoint, error) {
+	var endpoints []model.Endpoint
+	if !a.cfg.Runner.ScanOnStartup {
+		catalog, err := scanner.LoadYAML(a.cfg.Source.EndpointYAMLPath)
+		if err != nil {
+			return nil, err
+		}
+		endpoints = catalog.Endpoints
+	} else {
+		scanned, err := a.scanner.Scan()
+		if err != nil {
+			return nil, err
+		}
+		endpoints = scanned
+		if a.cfg.Source.EndpointYAMLPath != "" {
+			if _, err := a.scanner.ExportYAML(a.cfg.Source.EndpointYAMLPath); err != nil {
+				log.Printf("export endpoint yaml failed: %v", err)
+			}
+		}
 	}
 	if err := a.store.UpsertEndpoints(ctx, endpoints); err != nil {
 		return nil, err
@@ -126,27 +152,14 @@ func (a *App) refreshEndpoints(ctx context.Context) ([]model.Endpoint, error) {
 	return endpoints, nil
 }
 
-func (a *App) execute(ctx context.Context, endpoints []model.Endpoint) (*model.RunReport, error) {
+func (a *App) execute(ctx context.Context, endpoints []model.Endpoint, mode string) (*model.RunReport, error) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 
-	mode := a.cfg.Runner.Mode
-	if mode == "" {
-		mode = "smoke"
-	}
 	report, err := a.runner.RunOnce(ctx, endpoints, mode)
 	if err != nil {
 		a.metrics.RunCounter.WithLabelValues(mode, "failed").Inc()
 		return nil, err
-	}
-	if a.cfg.Stress.Enabled {
-		// Separate stress pass after smoke.
-		stressReport, stressErr := a.runner.RunOnce(ctx, endpoints, "stress")
-		if stressErr != nil {
-			a.metrics.RunCounter.WithLabelValues("stress", "failed").Inc()
-			return report, stressErr
-		}
-		return stressReport, nil
 	}
 	return report, nil
 }

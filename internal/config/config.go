@@ -26,10 +26,11 @@ type AppConfig struct {
 }
 
 type SourceConfig struct {
-	ProjectRoot    string   `yaml:"project_root"`
-	RouterDirs     []string `yaml:"router_dirs"`
-	IncludePatterns []string `yaml:"include_patterns"`
-	ExcludePaths   []string `yaml:"exclude_paths"`
+	ProjectRoot      string   `yaml:"project_root"`
+	RouterDirs       []string `yaml:"router_dirs"`
+	IncludePatterns  []string `yaml:"include_patterns"`
+	ExcludePaths     []string `yaml:"exclude_paths"`
+	EndpointYAMLPath string   `yaml:"endpoint_yaml_path"`
 }
 
 type APIConfig struct {
@@ -45,30 +46,31 @@ type APIConfig struct {
 	FailureStatuses    []int             `yaml:"failure_statuses"`
 	RequestTimeoutSec  int               `yaml:"request_timeout_sec"`
 	InsecureSkipVerify bool              `yaml:"insecure_skip_verify"`
+	RequestEncoding    string            `yaml:"request_encoding"`
 }
 
 type RunnerConfig struct {
-	Mode               string `yaml:"mode"`
-	ScanOnStartup      bool   `yaml:"scan_on_startup"`
-	Concurrency        int    `yaml:"concurrency"`
-	PollIntervalSec    int    `yaml:"poll_interval_sec"`
-	TaskTimeoutSec     int    `yaml:"task_timeout_sec"`
-	HTTPTimeoutSec     int    `yaml:"http_timeout_sec"`
-	MaxEndpointRounds  int    `yaml:"max_endpoint_rounds"`
-	RetryCount         int    `yaml:"retry_count"`
-	RetryBackoffMs     int    `yaml:"retry_backoff_ms"`
-	ReportDir          string `yaml:"report_dir"`
-	OnlyIncludeTaskAPIs bool  `yaml:"only_include_task_apis"`
+	Mode                string `yaml:"mode"`
+	ScanOnStartup       bool   `yaml:"scan_on_startup"`
+	Concurrency         int    `yaml:"concurrency"`
+	PollIntervalSec     int    `yaml:"poll_interval_sec"`
+	TaskTimeoutSec      int    `yaml:"task_timeout_sec"`
+	HTTPTimeoutSec      int    `yaml:"http_timeout_sec"`
+	MaxEndpointRounds   int    `yaml:"max_endpoint_rounds"`
+	RetryCount          int    `yaml:"retry_count"`
+	RetryBackoffMs      int    `yaml:"retry_backoff_ms"`
+	ReportDir           string `yaml:"report_dir"`
+	OnlyIncludeTaskAPIs bool   `yaml:"only_include_task_apis"`
 }
 
 type StressConfig struct {
-	Enabled             bool `yaml:"enabled"`
-	Concurrency         int  `yaml:"concurrency"`
-	DurationSec         int  `yaml:"duration_sec"`
-	PerEndpointRounds   int  `yaml:"per_endpoint_rounds"`
-	GlobalRateLimitRPS  int  `yaml:"global_rate_limit_rps"`
+	Enabled               bool `yaml:"enabled"`
+	Concurrency           int  `yaml:"concurrency"`
+	DurationSec           int  `yaml:"duration_sec"`
+	PerEndpointRounds     int  `yaml:"per_endpoint_rounds"`
+	GlobalRateLimitRPS    int  `yaml:"global_rate_limit_rps"`
 	StopOnHighFailureRate bool `yaml:"stop_on_high_failure_rate"`
-	HighFailureRatePct  int  `yaml:"high_failure_rate_pct"`
+	HighFailureRatePct    int  `yaml:"high_failure_rate_pct"`
 }
 
 type ScheduleConfig struct {
@@ -87,11 +89,11 @@ type WebConfig struct {
 }
 
 type OverridesConfig struct {
-	Defaults        map[string]any               `yaml:"defaults"`
-	ByParameterName map[string][]any             `yaml:"by_parameter_name"`
-	ByPath          map[string]map[string][]any  `yaml:"by_path"`
-	DisabledPaths   []string                     `yaml:"disabled_paths"`
-	ForceMethods    map[string]string            `yaml:"force_methods"`
+	Defaults        map[string]any              `yaml:"defaults"`
+	ByParameterName map[string][]any            `yaml:"by_parameter_name"`
+	ByPath          map[string]map[string][]any `yaml:"by_path"`
+	DisabledPaths   []string                    `yaml:"disabled_paths"`
+	ForceMethods    map[string]string           `yaml:"force_methods"`
 }
 
 func Load(path string) (*Config, error) {
@@ -125,6 +127,9 @@ func (c *Config) applyDefaults() {
 	}
 	if c.API.TaskStatusValueKey == "" {
 		c.API.TaskStatusValueKey = "status"
+	}
+	if c.API.RequestEncoding == "" {
+		c.API.RequestEncoding = "form"
 	}
 	if len(c.API.SuccessStatuses) == 0 {
 		c.API.SuccessStatuses = []int{2}
@@ -179,6 +184,9 @@ func (c *Config) applyDefaults() {
 	}
 	if len(c.Source.IncludePatterns) == 0 {
 		c.Source.IncludePatterns = []string{"*.py"}
+	}
+	if c.Source.EndpointYAMLPath == "" {
+		c.Source.EndpointYAMLPath = "configs/endpoints.generated.yaml"
 	}
 	if c.Overrides.Defaults == nil {
 		c.Overrides.Defaults = map[string]any{}

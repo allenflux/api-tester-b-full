@@ -9,12 +9,14 @@ source:
   exclude_paths:
     - __pycache__
     - __MACOSX
+  endpoint_yaml_path: configs/endpoints.generated.yaml
 
 api:
-  base_url: 216.176.194.30:8089
-  apikey: change-me
+  base_url: https://stg-api-enc.inaiai.com
+  apikey: 9RObPxOBC4Sq6YOMu95mEEWPoIaDE4rm
   apikey_header: Apikey
-  headers: {}
+  headers:
+    Accept: application/json
   task_status_path: /api/public/task
   task_status_method: GET
   task_status_id_field: task_id
@@ -23,10 +25,11 @@ api:
   failure_statuses: [3, 4, 5]
   request_timeout_sec: 30
   insecure_skip_verify: false
+  request_encoding: form
 
 runner:
   mode: smoke
-  scan_on_startup: true
+  scan_on_startup: false
   concurrency: 8
   poll_interval_sec: 3
   task_timeout_sec: 900
@@ -38,7 +41,7 @@ runner:
   only_include_task_apis: false
 
 stress:
-  enabled: true
+  enabled: false
   concurrency: 20
   duration_sec: 0
   per_endpoint_rounds: 2
@@ -49,7 +52,7 @@ stress:
 schedule:
   enabled: true
   cron: "0 3 * * *"
-  run_at_start: true
+  run_at_start: false
 
 database:
   path: data/api_tester.db
@@ -59,48 +62,38 @@ web:
   base_path: /
 
 overrides:
-  defaults: {}
+  defaults:
+    bid: 898b0d60-da10-44e0-a7eb-46b3455878e5
+    fee: "10"
+    title: 12312323123
   by_parameter_name:
+    first_image:
+      - https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg
+    end_image:
+      - https://pic.rmb.bdstatic.com/bjh/250622/beautify/20019de7ad4a6bae7da522da5c3f1555.jpeg?for=bg
     source_path:
-      - https://example.com/source.jpg
-    target_path:
-      - https://example.com/target.jpg
-      - https://example.com/target.mp4
-    prompt:
-      - a portrait with natural lighting
+      - https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg
+    image:
+      - https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg
     scene_name:
       - default_scene
     output_format:
       - png
       - video
-    fee:
-      - "1"
-    bid:
-      - smoke-bid
-    title:
-      - api-tester
     notify_url:
-      - https://example.com/webhook
+      - https://quiet-whale-88.webhook.cool
   by_path:
-    /api/public/generate/undress/anime/video:
-      source_path:
-        - https://example.com/source.jpg
-      scene_name:
-        - sexual_intercourse_oral_sex_group_sex_two_person_real_sex
-      output_format:
-        - video
-      fee:
-        - "1"
+    /api/public/generate/kiss/video:
+      first_image:
+        - https://imgpublic.ycomesc.live/upload_01/upload/20250902/2025090214525538512.jpeg
+      end_image:
+        - https://pic.rmb.bdstatic.com/bjh/250622/beautify/20019de7ad4a6bae7da522da5c3f1555.jpeg?for=bg
       bid:
-        - a7f9f994-a1bf-487b-a3a0-5334492ebce2
+        - 898b0d60-da10-44e0-a7eb-46b3455878e5
+      fee:
+        - "10"
       title:
-        - 2026恭喜发财3d
-      notify_url:
-        - https://example.com/webhook
-      hash_key:
-        - ""
-      task_id:
-        - ""
+        - 12312323123
     /api/public/task:
       task_id:
         - 167d3c28-ca32-4df8-b454-53cfe0e332c2

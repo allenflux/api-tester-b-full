@@ -13,13 +13,16 @@ import (
 	"api-tester/internal/storage"
 )
 
+type TriggerFunc func(ctx context.Context, mode string) (*model.RunReport, error)
+
 type Server struct {
-	store *storage.Store
-	mux   *http.ServeMux
+	store   *storage.Store
+	trigger TriggerFunc
+	mux     *http.ServeMux
 }
 
-func New(store *storage.Store) *Server {
-	s := &Server{store: store, mux: http.NewServeMux()}
+func New(store *storage.Store, trigger TriggerFunc) *Server {
+	s := &Server{store: store, trigger: trigger, mux: http.NewServeMux()}
 	s.routes()
 	return s
 }
@@ -31,6 +34,8 @@ func (s *Server) routes() {
 	s.mux.HandleFunc("/api/runs", s.handleRuns)
 	s.mux.HandleFunc("/api/calls", s.handleCalls)
 	s.mux.HandleFunc("/api/endpoints", s.handleEndpoints)
+	s.mux.HandleFunc("/api/run", s.handleRun)
+	s.mux.HandleFunc("/api/healthz", s.handleHealth)
 	s.mux.Handle("/metrics", promhttp.Handler())
 }
 
@@ -56,6 +61,27 @@ func (s *Server) handleCalls(w http.ResponseWriter, r *http.Request) {
 func (s *Server) handleEndpoints(w http.ResponseWriter, r *http.Request) {
 	eps, err := s.store.ListEndpoints(r.Context(), false)
 	respondJSON(w, eps, err)
+}
+
+func (s *Server) handleRun(w http.ResponseWriter, r *http.Request) {
+	if s.trigger == nil {
+		respondJSON(w, nil, http.ErrNotSupported)
+		return
+	}
+	if r.Method != http.MethodPost && r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	mode := strings.TrimSpace(r.URL.Query().Get("mode"))
+	if mode == "" {
+		mode = "smoke"
+	}
+	report, err := s.trigger(r.Context(), mode)
+	respondJSON(w, report, err)
+}
+
+func (s *Server) handleHealth(w http.ResponseWriter, _ *http.Request) {
+	respondJSON(w, map[string]any{"ok": true}, nil)
 }
 
 func respondJSON(w http.ResponseWriter, v any, err error) {

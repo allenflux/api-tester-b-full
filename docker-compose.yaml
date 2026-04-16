@@ -1,16 +1,27 @@
 version: "3.9"
 
 services:
+  endpoint-exporter:
+    build: .
+    container_name: api-tester-endpoint-exporter
+    command: ["/app/export-endpoints", "-config", "/app/configs/config.yaml"]
+    volumes:
+      - ./configs/config.yaml:/app/configs/config.yaml
+      - ./configs/endpoints.generated.yaml:/app/configs/endpoints.generated.yaml
+      - /Users/allenflux/PyCharmProject/temp/backend:/workspace/target-project:ro
+    restart: "no"
+
   api-tester:
     build: .
     container_name: api-tester
+    command: ["/app/api-tester", "-config", "/app/configs/config.yaml", "-mode", "serve"]
     ports:
       - "18081:18081"
     volumes:
-      - ./configs/config.yaml:/app/configs/config.yaml:ro
+      - ./configs/config.yaml:/app/configs/config.yaml
+      - ./configs/endpoints.generated.yaml:/app/configs/endpoints.generated.yaml
       - ./data:/app/data
       - ./reports:/app/reports
-      - /Users/allenflux/PyCharmProject/temp/backend:/workspace/target-project:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
